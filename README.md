@@ -1524,8 +1524,8 @@ autLayoutLabel.preferredMaxLayoutWidth = 100 ;
                     - 实质是NSData对象(json字符串)
                         - JSON数组解析
                         ```objc
-        NSString * str = @"[\"name\",\"pwd\"]";
-        NSArray* objc = [NSJSONSerialization JSONObjectWithData:[str dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+                        NSString * str = @"[\"name\",\"pwd\"]";
+                        NSArray* objc = [NSJSONSerialization JSONObjectWithData:[str dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
                         ```
 
                     - **轻量级的数据格式解析，文件下载除外不需要解析**
