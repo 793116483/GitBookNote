@@ -1,0 +1,655 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F2C34BD52338CE690010B163 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C34BD42338CE690010B163 /* AppDelegate.m */; };
+		F2C34BD82338CE690010B163 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C34BD72338CE690010B163 /* ViewController.m */; };
+		F2C34BDB2338CE690010B163 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2C34BD92338CE690010B163 /* Main.storyboard */; };
+		F2C34BDE2338CE690010B163 /* QJTableView.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F2C34BDC2338CE690010B163 /* QJTableView.xcdatamodeld */; };
+		F2C34BE02338CE6E0010B163 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2C34BDF2338CE6E0010B163 /* Assets.xcassets */; };
+		F2C34BE32338CE6E0010B163 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2C34BE12338CE6E0010B163 /* LaunchScreen.storyboard */; };
+		F2C34BE62338CE6E0010B163 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C34BE52338CE6E0010B163 /* main.m */; };
+		F2C34BF02338CE6E0010B163 /* QJTableViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C34BEF2338CE6E0010B163 /* QJTableViewTests.m */; };
+		F2C34BFB2338CE6E0010B163 /* QJTableViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C34BFA2338CE6E0010B163 /* QJTableViewUITests.m */; };
+		F2C34C0D2338CEC30010B163 /* QJTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C34C0C2338CEC30010B163 /* QJTableView.m */; };
+		F2C34C102338D0290010B163 /* QJBaseCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C34C0F2338D0290010B163 /* QJBaseCellModel.m */; };
+		F2C34C132338D0A20010B163 /* QJBaseGroupCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C34C122338D0A20010B163 /* QJBaseGroupCellModel.m */; };
+		F2C34C162338D5D80010B163 /* QJBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C34C152338D5D80010B163 /* QJBaseTableViewCell.m */; };
+		F2C34C192338E9BE0010B163 /* QJSwitchCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2C34C182338E9BE0010B163 /* QJSwitchCellModel.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F2C34BEC2338CE6E0010B163 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2C34BC82338CE690010B163 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2C34BCF2338CE690010B163;
+			remoteInfo = QJTableView;
+		};
+		F2C34BF72338CE6E0010B163 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2C34BC82338CE690010B163 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2C34BCF2338CE690010B163;
+			remoteInfo = QJTableView;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F2C34BD02338CE690010B163 /* QJTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QJTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2C34BD32338CE690010B163 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F2C34BD42338CE690010B163 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F2C34BD62338CE690010B163 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F2C34BD72338CE690010B163 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F2C34BDA2338CE690010B163 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F2C34BDD2338CE690010B163 /* QJTableView.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = QJTableView.xcdatamodel; sourceTree = "<group>"; };
+		F2C34BDF2338CE6E0010B163 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F2C34BE22338CE6E0010B163 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F2C34BE42338CE6E0010B163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2C34BE52338CE6E0010B163 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F2C34BEB2338CE6E0010B163 /* QJTableViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QJTableViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2C34BEF2338CE6E0010B163 /* QJTableViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJTableViewTests.m; sourceTree = "<group>"; };
+		F2C34BF12338CE6E0010B163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2C34BF62338CE6E0010B163 /* QJTableViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QJTableViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2C34BFA2338CE6E0010B163 /* QJTableViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJTableViewUITests.m; sourceTree = "<group>"; };
+		F2C34BFC2338CE6E0010B163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2C34C0B2338CEC30010B163 /* QJTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJTableView.h; sourceTree = "<group>"; };
+		F2C34C0C2338CEC30010B163 /* QJTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJTableView.m; sourceTree = "<group>"; };
+		F2C34C0E2338D0290010B163 /* QJBaseCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJBaseCellModel.h; sourceTree = "<group>"; };
+		F2C34C0F2338D0290010B163 /* QJBaseCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJBaseCellModel.m; sourceTree = "<group>"; };
+		F2C34C112338D0A20010B163 /* QJBaseGroupCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJBaseGroupCellModel.h; sourceTree = "<group>"; };
+		F2C34C122338D0A20010B163 /* QJBaseGroupCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJBaseGroupCellModel.m; sourceTree = "<group>"; };
+		F2C34C142338D5D80010B163 /* QJBaseTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJBaseTableViewCell.h; sourceTree = "<group>"; };
+		F2C34C152338D5D80010B163 /* QJBaseTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJBaseTableViewCell.m; sourceTree = "<group>"; };
+		F2C34C172338E9BE0010B163 /* QJSwitchCellModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QJSwitchCellModel.h; sourceTree = "<group>"; };
+		F2C34C182338E9BE0010B163 /* QJSwitchCellModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QJSwitchCellModel.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F2C34BCD2338CE690010B163 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2C34BE82338CE6E0010B163 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2C34BF32338CE6E0010B163 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F2C34BC72338CE690010B163 = {
+			isa = PBXGroup;
+			children = (
+				F2C34BD22338CE690010B163 /* QJTableView */,
+				F2C34BEE2338CE6E0010B163 /* QJTableViewTests */,
+				F2C34BF92338CE6E0010B163 /* QJTableViewUITests */,
+				F2C34BD12338CE690010B163 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F2C34BD12338CE690010B163 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F2C34BD02338CE690010B163 /* QJTableView.app */,
+				F2C34BEB2338CE6E0010B163 /* QJTableViewTests.xctest */,
+				F2C34BF62338CE6E0010B163 /* QJTableViewUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F2C34BD22338CE690010B163 /* QJTableView */ = {
+			isa = PBXGroup;
+			children = (
+				F2C34C082338CE9D0010B163 /* QJTableView */,
+				F2C34BD32338CE690010B163 /* AppDelegate.h */,
+				F2C34BD42338CE690010B163 /* AppDelegate.m */,
+				F2C34BD62338CE690010B163 /* ViewController.h */,
+				F2C34BD72338CE690010B163 /* ViewController.m */,
+				F2C34BD92338CE690010B163 /* Main.storyboard */,
+				F2C34BDF2338CE6E0010B163 /* Assets.xcassets */,
+				F2C34BE12338CE6E0010B163 /* LaunchScreen.storyboard */,
+				F2C34BE42338CE6E0010B163 /* Info.plist */,
+				F2C34BE52338CE6E0010B163 /* main.m */,
+				F2C34BDC2338CE690010B163 /* QJTableView.xcdatamodeld */,
+			);
+			path = QJTableView;
+			sourceTree = "<group>";
+		};
+		F2C34BEE2338CE6E0010B163 /* QJTableViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				F2C34BEF2338CE6E0010B163 /* QJTableViewTests.m */,
+				F2C34BF12338CE6E0010B163 /* Info.plist */,
+			);
+			path = QJTableViewTests;
+			sourceTree = "<group>";
+		};
+		F2C34BF92338CE6E0010B163 /* QJTableViewUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F2C34BFA2338CE6E0010B163 /* QJTableViewUITests.m */,
+				F2C34BFC2338CE6E0010B163 /* Info.plist */,
+			);
+			path = QJTableViewUITests;
+			sourceTree = "<group>";
+		};
+		F2C34C082338CE9D0010B163 /* QJTableView */ = {
+			isa = PBXGroup;
+			children = (
+				F2C34C0A2338CE9D0010B163 /* View */,
+				F2C34C092338CE9D0010B163 /* Model */,
+			);
+			path = QJTableView;
+			sourceTree = "<group>";
+		};
+		F2C34C092338CE9D0010B163 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F2C34C112338D0A20010B163 /* QJBaseGroupCellModel.h */,
+				F2C34C122338D0A20010B163 /* QJBaseGroupCellModel.m */,
+				F2C34C0E2338D0290010B163 /* QJBaseCellModel.h */,
+				F2C34C0F2338D0290010B163 /* QJBaseCellModel.m */,
+				F2C34C172338E9BE0010B163 /* QJSwitchCellModel.h */,
+				F2C34C182338E9BE0010B163 /* QJSwitchCellModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F2C34C0A2338CE9D0010B163 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F2C34C0B2338CEC30010B163 /* QJTableView.h */,
+				F2C34C0C2338CEC30010B163 /* QJTableView.m */,
+				F2C34C142338D5D80010B163 /* QJBaseTableViewCell.h */,
+				F2C34C152338D5D80010B163 /* QJBaseTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F2C34BCF2338CE690010B163 /* QJTableView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2C34BFF2338CE6E0010B163 /* Build configuration list for PBXNativeTarget "QJTableView" */;
+			buildPhases = (
+				F2C34BCC2338CE690010B163 /* Sources */,
+				F2C34BCD2338CE690010B163 /* Frameworks */,
+				F2C34BCE2338CE690010B163 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QJTableView;
+			productName = QJTableView;
+			productReference = F2C34BD02338CE690010B163 /* QJTableView.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F2C34BEA2338CE6E0010B163 /* QJTableViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2C34C022338CE6E0010B163 /* Build configuration list for PBXNativeTarget "QJTableViewTests" */;
+			buildPhases = (
+				F2C34BE72338CE6E0010B163 /* Sources */,
+				F2C34BE82338CE6E0010B163 /* Frameworks */,
+				F2C34BE92338CE6E0010B163 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F2C34BED2338CE6E0010B163 /* PBXTargetDependency */,
+			);
+			name = QJTableViewTests;
+			productName = QJTableViewTests;
+			productReference = F2C34BEB2338CE6E0010B163 /* QJTableViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F2C34BF52338CE6E0010B163 /* QJTableViewUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2C34C052338CE6E0010B163 /* Build configuration list for PBXNativeTarget "QJTableViewUITests" */;
+			buildPhases = (
+				F2C34BF22338CE6E0010B163 /* Sources */,
+				F2C34BF32338CE6E0010B163 /* Frameworks */,
+				F2C34BF42338CE6E0010B163 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F2C34BF82338CE6E0010B163 /* PBXTargetDependency */,
+			);
+			name = QJTableViewUITests;
+			productName = QJTableViewUITests;
+			productReference = F2C34BF62338CE6E0010B163 /* QJTableViewUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F2C34BC82338CE690010B163 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1030;
+				ORGANIZATIONNAME = yiniu;
+				TargetAttributes = {
+					F2C34BCF2338CE690010B163 = {
+						CreatedOnToolsVersion = 10.3;
+					};
+					F2C34BEA2338CE6E0010B163 = {
+						CreatedOnToolsVersion = 10.3;
+						TestTargetID = F2C34BCF2338CE690010B163;
+					};
+					F2C34BF52338CE6E0010B163 = {
+						CreatedOnToolsVersion = 10.3;
+						TestTargetID = F2C34BCF2338CE690010B163;
+					};
+				};
+			};
+			buildConfigurationList = F2C34BCB2338CE690010B163 /* Build configuration list for PBXProject "QJTableView" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F2C34BC72338CE690010B163;
+			productRefGroup = F2C34BD12338CE690010B163 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F2C34BCF2338CE690010B163 /* QJTableView */,
+				F2C34BEA2338CE6E0010B163 /* QJTableViewTests */,
+				F2C34BF52338CE6E0010B163 /* QJTableViewUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F2C34BCE2338CE690010B163 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2C34BE32338CE6E0010B163 /* LaunchScreen.storyboard in Resources */,
+				F2C34BE02338CE6E0010B163 /* Assets.xcassets in Resources */,
+				F2C34BDB2338CE690010B163 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2C34BE92338CE6E0010B163 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2C34BF42338CE6E0010B163 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F2C34BCC2338CE690010B163 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2C34C132338D0A20010B163 /* QJBaseGroupCellModel.m in Sources */,
+				F2C34C162338D5D80010B163 /* QJBaseTableViewCell.m in Sources */,
+				F2C34BD82338CE690010B163 /* ViewController.m in Sources */,
+				F2C34BDE2338CE690010B163 /* QJTableView.xcdatamodeld in Sources */,
+				F2C34BE62338CE6E0010B163 /* main.m in Sources */,
+				F2C34C102338D0290010B163 /* QJBaseCellModel.m in Sources */,
+				F2C34C0D2338CEC30010B163 /* QJTableView.m in Sources */,
+				F2C34BD52338CE690010B163 /* AppDelegate.m in Sources */,
+				F2C34C192338E9BE0010B163 /* QJSwitchCellModel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2C34BE72338CE6E0010B163 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2C34BF02338CE6E0010B163 /* QJTableViewTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2C34BF22338CE6E0010B163 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2C34BFB2338CE6E0010B163 /* QJTableViewUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F2C34BED2338CE6E0010B163 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2C34BCF2338CE690010B163 /* QJTableView */;
+			targetProxy = F2C34BEC2338CE6E0010B163 /* PBXContainerItemProxy */;
+		};
+		F2C34BF82338CE6E0010B163 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2C34BCF2338CE690010B163 /* QJTableView */;
+			targetProxy = F2C34BF72338CE6E0010B163 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F2C34BD92338CE690010B163 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2C34BDA2338CE690010B163 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F2C34BE12338CE6E0010B163 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2C34BE22338CE6E0010B163 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F2C34BFD2338CE6E0010B163 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F2C34BFE2338CE6E0010B163 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F2C34C002338CE6E0010B163 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 46S98ZE7K8;
+				INFOPLIST_FILE = QJTableView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yiniu.app.QJTableView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F2C34C012338CE6E0010B163 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 46S98ZE7K8;
+				INFOPLIST_FILE = QJTableView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yiniu.app.QJTableView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F2C34C032338CE6E0010B163 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 46S98ZE7K8;
+				INFOPLIST_FILE = QJTableViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yiniu.app.QJTableViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QJTableView.app/QJTableView";
+			};
+			name = Debug;
+		};
+		F2C34C042338CE6E0010B163 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 46S98ZE7K8;
+				INFOPLIST_FILE = QJTableViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yiniu.app.QJTableViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QJTableView.app/QJTableView";
+			};
+			name = Release;
+		};
+		F2C34C062338CE6E0010B163 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 46S98ZE7K8;
+				INFOPLIST_FILE = QJTableViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yiniu.app.QJTableViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = QJTableView;
+			};
+			name = Debug;
+		};
+		F2C34C072338CE6E0010B163 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 46S98ZE7K8;
+				INFOPLIST_FILE = QJTableViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yiniu.app.QJTableViewUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = QJTableView;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F2C34BCB2338CE690010B163 /* Build configuration list for PBXProject "QJTableView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2C34BFD2338CE6E0010B163 /* Debug */,
+				F2C34BFE2338CE6E0010B163 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2C34BFF2338CE6E0010B163 /* Build configuration list for PBXNativeTarget "QJTableView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2C34C002338CE6E0010B163 /* Debug */,
+				F2C34C012338CE6E0010B163 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2C34C022338CE6E0010B163 /* Build configuration list for PBXNativeTarget "QJTableViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2C34C032338CE6E0010B163 /* Debug */,
+				F2C34C042338CE6E0010B163 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2C34C052338CE6E0010B163 /* Build configuration list for PBXNativeTarget "QJTableViewUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2C34C062338CE6E0010B163 /* Debug */,
+				F2C34C072338CE6E0010B163 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F2C34BDC2338CE690010B163 /* QJTableView.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F2C34BDD2338CE690010B163 /* QJTableView.xcdatamodel */,
+			);
+			currentVersion = F2C34BDD2338CE690010B163 /* QJTableView.xcdatamodel */;
+			path = QJTableView.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F2C34BC82338CE690010B163 /* Project object */;
+}
