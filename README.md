@@ -1503,19 +1503,19 @@ autLayoutLabel.preferredMaxLayoutWidth = 100 ;
                             #import <MobileCoreServices/MobileCoreServices.h> // 需要的头文件
 
                             -(NSString *)MIMETypeWithFilePath:(NSString *)filePath
-{
-                            if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-                                return @"";
+    {
+                                if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+                                    return @"";
+                                }
+                                CFStringRef UTT = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)([filePath pathExtension]), NULL);
+                                CFStringRef MIMEType = UTTypeCopyPreferredTagWithClass(UTT, kUTTagClassMIMEType);
+                                CFRelease(UTT);
+                                if (!MIMEType) {
+                                    // 支持所有的二进制 的 MIMEType
+                                    return @"application/octet-stream";
+                                }
+                                return (__bridge NSString *)MIMEType ;
                             }
-                            CFStringRef UTT = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)([filePath pathExtension]), NULL);
-                            CFStringRef MIMEType = UTTypeCopyPreferredTagWithClass(UTT, kUTTagClassMIMEType);
-                            CFRelease(UTT);
-                            if (!MIMEType) {
-                                // 支持所有的二进制 的 MIMEType
-                                return @"application/octet-stream";
-                            }
-                            return (__bridge NSString *)MIMEType ;
-                        }
                             ```
 
                 - **JSON 解析**
