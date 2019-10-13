@@ -581,8 +581,8 @@ autLayoutLabel.preferredMaxLayoutWidth = 100 ;
                 - 当前线程 只有把 同步任务 执行完后，才能执行下一个任务，不然就一直等队列把当前同步任务再次给当前线程执行完，当前线程才接着执行下一个任务
             ```objc
             dispatch_sync(dispatch_queue_t  _Nonnull queue, ^{
-        // 同步执行的任务
-    })
+                // 同步执行的任务
+            })
             ```
             - **异步** 执行任务
                 - 可以在**新的线程**中执行任务，**具备**开启新线程的能力
@@ -590,8 +590,8 @@ autLayoutLabel.preferredMaxLayoutWidth = 100 ;
                 - 当前线程不用等异步任务执行，就可以执行下一条任务
             ```objc
             dispatch_async(dispatch_queue_t  _Nonnull queue, ^{
-        // 异步执行的任务
-    })
+                // 异步执行的任务
+            })
             ```
 
             - **队列类型**
@@ -887,8 +887,8 @@ autLayoutLabel.preferredMaxLayoutWidth = 100 ;
                         // 如果是子线程，创建子线程的 runLoop , 如果当前线程是主线程，那么就是mainRunLoop
                         CFRunLoopRef runLoop = CFRunLoopGetCurrent();
                         CFRunLoopObserverRef observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, kCFRunLoopAllActivities, YES, 0, ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
-        NSLog(@"RunLoop 当前的状态 = %ld",activity);
-    });
+                            NSLog(@"RunLoop 当前的状态 = %ld",activity);
+                        });
                         CFRunLoopAddObserver(runLoop, observer, kCFRunLoopCommonModes);
                         ```
 
@@ -1126,13 +1126,13 @@ autLayoutLabel.preferredMaxLayoutWidth = 100 ;
                         [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
 
                             // 把JSON 转成 OC 对象(反序列化)
-                    //        NSJSONReadingMutableContainers = (1UL << 0), // JSON解析成可变的 数组 和 字典
-                    //        NSJSONReadingMutableLeaves = (1UL << 1),     // JSON解析成 内部所有的字符串都是可变的,一般不用，有点问题
-                    //        NSJSONReadingFragmentsAllowed = (1UL << 2),  // JSON解析成 既不是字典也不是数组,则必须用该s枚举值
-                    //        NSJSONReadingAllowFragments = NSJSONReadingFragmentsAllowed
-                            // 返序列化
-                            // options 参数:传 NSJSONReadingOptions 也可以传 NSJSONWritingOptions
-                            NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                            //        NSJSONReadingMutableContainers = (1UL << 0), // JSON解析成可变的 数组 和 字典
+                            //        NSJSONReadingMutableLeaves = (1UL << 1),     // JSON解析成 内部所有的字符串都是可变的,一般不用，有点问题
+                            //        NSJSONReadingFragmentsAllowed = (1UL << 2),  // JSON解析成 既不是字典也不是数组,则必须用该s枚举值
+                            //        NSJSONReadingAllowFragments = NSJSONReadingFragmentsAllowed
+                                    // 返序列化
+                                    // options 参数:传 NSJSONReadingOptions 也可以传 NSJSONWritingOptions
+                                    NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
 
                             // 刷新UI
                         }];
@@ -2389,16 +2389,16 @@ CGContextRef context_cur = UIGraphicsGetCurrentContext();
 
     - 右滑手势实现
     ```objc
-        // 使用 runtime 动态获取类的所有属性
-//    int onCont  ;
+    // 使用 runtime 动态获取类的所有属性
+    //    int onCont  ;
     // 只能动态获取当前类定义的所有属性，即获取不到子类的属性 或者 父类的属性
     // 只为找到 _targets 属性名
-//    Ivar * ivarList = class_copyIvarList([UIGestureRecognizer class], &onCont);
-//    for (int i = 0 ; i < onCont; i++) {
-//        Ivar var = ivarList[i];
-//        char * name = ivar_getName(var);
-//        NSLog(@"%@",@(name));
-//    }
+    //    Ivar * ivarList = class_copyIvarList([UIGestureRecognizer class], &onCont);
+    //    for (int i = 0 ; i < onCont; i++) {
+    //        Ivar var = ivarList[i];
+    //        char * name = ivar_getName(var);
+    //        NSLog(@"%@",@(name));
+    //    }
 
     // 自定义删除控制器手势
     UIScreenEdgePanGestureRecognizer * edgePan = self.interactivePopGestureRecognizer ;
