@@ -352,7 +352,7 @@ NSLog(@"%@",persons);
 
 
 
-###3.  XIB两种加载方式
+### 3. XIB两种加载方式
 ```objc
     // 第一种方式
     NSArray * views = [[NSBundle mainBundle] loadNibName:@"xib名称" owner:nil options:nil];
@@ -362,7 +362,7 @@ NSLog(@"%@",persons);
     NSArray * views = [nib instantiateWithOwner:nil options:nil];
 ```
 
-###4. UIViewController 的xib 加载就只需要调用 init
+### 4. UIViewController 的xib 加载就只需要调用 init
 - 因为 init 方法是先去找对应的 控制器名称.storyboard 或者 .xib , 然后调用 【- initWithNibName:xxx bundle:(nullable NSBundle *)】加载
 - 如果没有找到对应的 storyboard 或者 xib 就会创建一个控制器
 
@@ -1503,7 +1503,7 @@ autLayoutLabel.preferredMaxLayoutWidth = 100 ;
                             #import <MobileCoreServices/MobileCoreServices.h> // 需要的头文件
 
                             -(NSString *)MIMETypeWithFilePath:(NSString *)filePath
-    {
+                            {
                                 if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
                                     return @"";
                                 }
