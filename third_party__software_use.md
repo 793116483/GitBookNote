@@ -21,19 +21,13 @@
         > git init  // 在项目中创建仓库
         > git add . // 把所有的文件代码都添加到暂缓区
         > git commit -m "把所有文件及内容添加到本地仓库中"
-        > open ./.git/config  // 为了修改配制
-            // 下面内容是需要加入到 config 文件中
-            // git@github.com 代表了使用密码协议 SSH 管理
-            // 账号A 为 你的 github 上的账号
 
-            [remote "origin"]
-	                url = git@github.com:账号A/QJQQViscidity.git
-	                fetch = +refs/heads/*:refs/remotes/origin/*
-
-        > git remote add origin git@github.com:账号A/QJxxxDome.git
+        > git remote add origin git@github.com:账号A/QJxxxDome.git  // 项目关联github上的QJxxxDome仓库
 
                 问题：如果出现【fatal: remote origin already exists.】，
                  则先删除origin命令: git remote rm origin
+
+                查看配制：在~/.git/config内
 
         > git pull --rebase origin master // 先拉取github数据,如：README.m
             // 保守起见：等拉取完毕后再执行命令：
