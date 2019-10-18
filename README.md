@@ -112,6 +112,10 @@ static id _instance = nil;                                      \
 ```OBJC
 #define __OBJC__
 ```
+
+#### 4. 宏 与 const 区别
+![](./images/const与宏区别.png)
+
 #### 4. 设置app icon 上的提示数字
 ```OBJC
     UIApplication * app = [UIApplication sharedApplication];
@@ -1595,9 +1599,175 @@ autLayoutLabel.preferredMaxLayoutWidth = 100 ;
                     }
                     ```
 
+### 12 Runtime 运行时机制
+##### 1. Runtime 简介
+- runtime 简称运行时机制，**OC就是运行时机制**，也就是运行时候的机制，**其中最主要的就是消息机制**
 
-### 12 NSFile 文件
-#### NSFileManager 文件管理者
+- 对于C语言，**函数的调用在编译的时候决定调用哪个函数**
+
+- 对于**OC函数**，属性于**动态调用过程**，在编译的时候并不能决定调用哪个函数，只有在真正运行的时候才会根据函数名称找到对应的函数来调用
+
+- 区别证明：
+    - 在编译阶段，**OC**在**不实现指定的对象方法**就可以调用该方法(只是会报一个警告)**通过编译**，只有在运行的过程中调用该方法时引起程序漰溃
+
+    - 在编译阶段，**C语言**调用函数时，如果**没有实现该方法**，就**直接报错**
+
+
+##### 2. Runime 消息机制
+- 在使用时先导入头文件"objc/message.h"
+
+- 发送消息机制
+    - 作用：**可以调用一些私有方法**
+
+    - **任务方法的调用本质** 就是 **发送一个消息**，用runtime发送消息，**OC底层实现通过runtime**
+        - 比如 [[NSObject alloc] ]调用这个方法,本质发送消息：**id objc_msgSend(id,SEL,...)**，**SEL,后面紧跟传的参数，也可不传**
+            - 发送一个消息，**id(传self)指定谁发送消息 ，SEL: 被发送的消息**
+            ```objc
+            // [[UIView alloc] initWithFrame:CGRectZero];
+            // runtime 方法调用本质：就是用 objc_msgSend(id ,SEL); 发送消息
+            // 发送一个消息，id(传self)指定谁发送消息 ，SEL: 被发送的消息
+            // objc_getClass("UIView") 可以用 [UIView class] 代替
+            UIView * objc = objc_msgSend(objc_getClass("NSObject"), sel_registerName("alloc"));
+            objc = objc_msgSend(objc, @selector(initWithFrame:),CGRectZero);
+            ```
+                - **实现发送消息的过程**
+                    - 类方法：存储在 元类方法列表；对象方法：存储在 类对象方法列表
+
+                    - 第一步：把需要调用的方法先包装成一个方法名，得到一个地址(或索引)
+                    - 第二步：通过当前类的**isa指针**去**元类的方法列表**中对比**查找类方法**
+                    - 查到后调用该函数代码块内容
+                    - 依此类推，对象方法调用也是一样的，只是列表在不同位置
+
+            - objc_msgSend(id ,SEL) 函数调用先配制项目
+            ![](./images/objc_msgSend函数调用发送消息机制配制.png)
+
+    - **runtime 一些函数 及 功能**
+        - **方法交换 method_exchangeImplementations**
+            - 方法交换：就是**交换方法实现的代码块**
+            - 当交换后，调用 method1 就等于实现了 method2 代码块内容，反之，亦然。
+            ```objc
+            #import <objc/runtime.h>
+
+            @implementation NSMutableArray (MethodExchange)
+
+            +(void)load
+            {
+                [super load];
+
+                // Class 的相关是用 objc 开头
+                // 方法代码块 交换：只是一个方法功能，所以用 method 开头
+                // Method 类或对象方法 是通过类的isa指针找，所以用 class_开头
+                // NSMutableArray 实际上是 __NSArrayM 类型
+                Method method1 = class_getInstanceMethod(NSClassFromString(@"__NSArrayM"), @selector(qj_addObject:));
+                Method method2 = class_getInstanceMethod(NSClassFromString(@"__NSArrayM"), @selector(addObject:));
+                // 只能交换一次，不然又会变成方法本身 ，所以放在 +load 方法实现交换(+load方法在app起动时只调一次)
+                method_exchangeImplementations(method1, method2);
+            }
+
+            -(void)qj_addObject:(id)object
+            {
+                if (object) {// 这样可以防止添加空数据
+                    // 通过上面的方法交换后，在使用 [self qj_addObject:] 等于调用了 [self addObjec:]
+                    // 反之如果调用 [self addObjec:] 就等于调用了 [self qj_addObject:]
+                    // 所以在这里不能调用 [self addObject:]，否则会造成死循环
+                    [self qj_addObject:object];
+                }
+            }
+            @end
+            ```
+        - **动态添加方法**
+            - 顾名思义用到时再添加方法
+
+            - 思考：为什么要动态添加方法
+                - 1. 动态添方法，可以节省内存；用到时创建一个方法添加到内存中
+                - 2. 有些时候，一个对象接收到一个传参，这个参数是外界传过来的方法名，外界通知需要调用它的对象方法，你如果没有就先创建一个方法；因为不知道你要调什么方法名，所以就需要动态创建了，即你用时我再创建
+
+            - **class_addMethod** 动态创建方法的函数
+                - 什么时候创建：**在调用类或对象未实现的方法才需要动态创建**
+                    - 调用了当前类未实现的类方法 或 对象方法 时，系统自动调用以下方法
+                    ```objc
+                    // 调用了当前类未实现的类方法时，再重写下面方法，创建实现sel方法
+                    +(BOOL)resolveClassMethod:(SEL)sel ;
+                    // 调用了当前类对象未实现的对象方法时
+                    +(BOOL)resolveInstanceMethod:(SEL)sel;
+                    ```
+
+                - 示例
+                    - 参数说明
+                        - cls 参数: 当前类或对像的 Class
+                        - name参数：未实现的方法编号
+                        - imp 参数：与name方法相关联的函数入口
+                        - types参数：是字符串 **每个字符及位置****对应**的描述了函数需要传的**不同位置参数类型**
+                            - 每种字符所代表的类型是不同的，可在这个文档查看：
+                            ```
+                            https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100
+                            ```
+
+                ```objc
+                #pragma mark - 动态添加方法
+                // 什么时候调用：当调用 当前类未实现的方法 时调用下面方法
+                // 下面方法作用：当系统查看到没有 sel类方法时，使用 runtime 动态添加与实现该方法
+                +(BOOL)resolveInstanceMethod:(SEL)sel
+                {
+                    // 创建 +test:
+                    if (sel == NSSelectorFromString(@"test:")) {
+                        // cls 参数: 类形[Class]
+                        // name参数: 方法名[sel(SEL)]
+                        // imp 参数: 函数实现入口 [(IMP)test],test 是函数 void test(id self,SEL _cmd)
+                        // types参数: 是字符串 每个字符及位置对应的描述了函数需要传的参数类型，test函数的第二个和第三个参数类型必须用 “@:”
+                        //          比如 "v@:" 表示：v(表示void类型，字符所在位置0就是返回值类型) ,
+                                                // @(表示id类型，函数第1个传参位置的类型是 id类型)；
+                                                // :(表示SEL类型，函数第二个参数位置的类型是 SEL方法类型 ),
+                                    // 可以对照每一个传的字符代表的参数类型
+                        // 下面的方法是用于 sel 与 test函数 邦定
+                        class_addMethod(self, sel, (IMP)test, "v@:@");
+
+                        return YES ;
+                    }
+                    return [super resolveClassMethod:sel];
+                }
+
+                // 函数实现(定义参数内必须包含下面两个参数，是系统自动传的)
+                // self 参数: 系统自动传,代码当前类
+                // _cmd 参数: 当前方法编号,系统自动传的
+                // number参数：自己定义的，从外面传的
+                void test(id self , SEL _cmd , NSNumber * number)
+                {
+                    NSLog(@"动态调用了test方法,number = %@",number);
+                }
+                ```
+                ```objc
+                // 假设在 NSMutableArray分类实现如上方法及函数
+
+                // 调用 NSMutableArray 对象 未实现的方法 test: ,动态创建一个函数与之关联
+                objc_msgSend([[NSMutableArray alloc] init], @selector(test:),@10);
+                ```
+
+        - **动态创建属性**
+            - 实际就**是动态关联一个属性**
+
+            - **用途**：可以随时在对象上加一个属性，**这样一来 分类也可以添加"属性"了**(注：分类原本添加的只有属性get和set方法，现在有了runtime也可以关联属性了)
+
+            - **关联属性 方案1**
+            ```objc
+            #pragma mark - 在分类中 关联 ids属性
+            -(void)setIds:(NSString *)ids
+            {
+                objc_setAssociatedObject(self, @"ids", ids, OBJC_ASSOCIATION_COPY_NONATOMIC);
+            }
+
+            -(NSString *)ids
+            {
+                return objc_getAssociatedObject(self, @"ids");
+            }
+            ```
+
+
+
+
+
+### 13 NSFile 文件
+##### NSFileManager 文件管理者
 - 获取指定路径的**文件数据大小**（length）
 ```objc
     // 获取 filePath 路径的文件数据大小
@@ -1607,7 +1777,7 @@ autLayoutLabel.preferredMaxLayoutWidth = 100 ;
     NSInteger dataLength = [attributesForFile[NSFileSize] integerValue];
 ```
 
-#### NSFileHandle 文件句丙(指针)
+##### NSFileHandle 文件句丙(指针)
 - 用途：可以直接在文件存储的**沙盒下拼接文件**
 - 注意：在创建时打开了文件拼接的大门，在拼接完后**需要关闭**([fileHeadle closeFile])
 - 示例
