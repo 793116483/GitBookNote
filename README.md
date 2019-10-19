@@ -115,8 +115,17 @@ static id _instance = nil;                                      \
 
 #### 4. 宏 与 const 区别
 ![](./images/const与宏区别.png)
+- const 修饰那部分的变量只能读
 
-#### 4. 设置app icon 上的提示数字
+```objc
+int const *p = &b ;     //  *p:只能读 ，  p:可读可写
+int * const p = &b ;    //  *p:可读可写 ，p:只能读
+const int * const p = &b;// *p:只能读 ， p:只能读
+int const * const p = b&;// *p:只能读 ， p:只能读
+```
+
+
+#### 5. 设置app icon 上的提示数字
 ```OBJC
     UIApplication * app = [UIApplication sharedApplication];
 
@@ -126,7 +135,7 @@ static id _instance = nil;                                      \
 
     app.applicationIconBadgeNumber = 10;
 ```
-#### 5. 系统默认把状态栏 status bar 交给 view controller 来管理，改变这种管理对象（把 status bar 交给 UIApplication 来管理）
+#### 6. 系统默认把状态栏 status bar 交给 view controller 来管理，改变这种管理对象（把 status bar 交给 UIApplication 来管理）
  - 在项目中 ifno.plist 中添加一个配制等于 NO
 
  ![](./images/statusBar交给application设置所需的配制.png)
