@@ -474,6 +474,34 @@ autLayoutLabel.preferredMaxLayoutWidth = 100 ;
  __unsafe_unretained typeof(self) weakSelf = self ;
 ```
 
+- block 的定义方式
+```objc
+    // 第一种:没有返回值，也没有参数
+    void (^block1)() = ^{
+    };
+
+    // 第二种:没有返回值，有参数
+    void (^block2)(int) = ^(int a){
+    };
+
+    // 第三种:有返回值，没参数
+    int (^block3)() = ^{
+        return 3;
+    };
+    int (^block3)() = ^int{
+        return 3;
+    };
+
+    // 第四种：有返回值，有参数
+    int (^block4)(int) = ^int(int a){
+        return a ;
+    };
+    int (^block4)(int) = ^(int a){
+        return a ;
+    };
+```
+
+
 #
 ### 10. 多线程
 
