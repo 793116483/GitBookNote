@@ -2603,8 +2603,12 @@ CGContextRef context_cur = UIGraphicsGetCurrentContext();
 
 
   #### UIView 相关的属性
+- **bounds** : 相对于自身的可视区域在内容的区域
+    - **改变了 origin** 就是改变view内的所有子控件整体移动，但 view**相对于父控件位置还是不变，只是内容的位置变了**
+
 - frame
- - CGRact 属性，代表位置
+    - **改变了 origin** 就是改变view在父控件的位置
+    - CGRact 属性，代表位置
 
     ``` objc
 
