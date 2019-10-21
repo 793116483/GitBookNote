@@ -466,6 +466,36 @@ autLayoutLabel.preferredMaxLayoutWidth = 100 ;
 ```
 
 ### 9. block
+- block是一个对象，可以添加到数组或字典中
+
+- block 内存管理
+    - **注意**：block 是对外部**对象值的地址引用，不是对象名内存地址的引用**，如果对象**加了__block 声明后就是对 对象名内存地址的引用**，对象名内存中存放的地址改变则block内部引用跟着变。
+        - 如果 引用的对象用 **static** 修饰,则与使用**__block效果一样**，对象名地址传递
+
+    ```objc
+    NSMutableArray * arr = [NSMutableArray arrayWithObjects:@1,@2,@3, nil];
+//    __block NSNumber * num = @14;
+    self.block = ^{
+//        NSLog(@"%p === %@",num,num);
+        NSLog(@"arr = %@ , count = %ld",arr,arr.count);
+    };
+    self.block();
+//    num = @10;
+//    [arr removeLastObject];
+    arr = [NSMutableArray arrayWithObjects:@4,@5,@6, nil];
+    self.block(); // block内部得到的是 arr 原先指向的对象
+    ```
+
+    - 验证方式：打印block对象，可以看到不同的结果
+    - MRC 手动管理内存
+        - **全局区**： 只要block内部代码**没有引用局部变量**，block就**放在全局区**
+        - **栈区**：只要block内部代码**引用局部变量**，block就**放在栈区**
+        - **堆区**：属性使用copy放在堆区中(引用了局部变量放在堆中，如果未引用则放在全局区),不使用retain(因为引用了局部变量时block放在栈区会被释放掉造成野指针)
+
+    - ARC 自动管理内存
+        - 前两点与MRC一样
+        - **strong 与 copy 一样，内部未引用局部变量时放在全局区，引用了局部变量时放在堆中**
+
 - block的循环引用解决方法
 ```objc
  __weak typeof(self) weakSelf = self ;
