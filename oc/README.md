@@ -26,3 +26,13 @@ typedef NS_OPTIONS(NSInteger, QJDirc) {
 };
 ```
 
+
+### 三、代码块 功能
+```objc
+    UIView * view = ({
+        UIView * view = [[UIView alloc] init];
+        view.frame = CGRectMake(0, 0, 100, 100);
+        // 最后一行作为值返回 , 这样写的代码块内容整体与 view相关设置，看着层次分明
+        view ;
+    });
+```
