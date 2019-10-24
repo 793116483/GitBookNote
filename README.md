@@ -2927,5 +2927,35 @@ self.tableView.editing = YES ;
    NSArray * indexPathArray = self.tableView.indexPathsForSelectedRows ;
 ```
 
+## UICollectionView
+#### UICollectionViewFlowLayout 自定义
+- **UICollectionViewLayout**
+    - 自定义需要实现的方法
+        - 可以实现一些比较好看的效果
 
+    ```objc
+        // Subclasses should always call super if they override.
+        // 准备布局
+        - (void)prepareLayout;
+
+        // 在rect区域内，每个显示在该区域的 cell 一些属性设置，可以从super获取后就可以改每一个cell的布局
+        - (nullable NSArray<__kindof UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect;
+
+        // 当滑动(bounds改变内容位置)时，是否刷新布局(前两个方法)
+        - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds;
+    ```
+
+        - 在重新刷新显示的cell属性可以更改以下属性 **UICollectionViewLayoutAttributes**
+        ```objc
+        @property (nonatomic) CGRect frame;
+        @property (nonatomic) CGPoint center;
+        @property (nonatomic) CGSize size;
+        @property (nonatomic) CATransform3D transform3D;
+        @property (nonatomic) CGRect bounds API_AVAILABLE(ios(7.0));
+        @property (nonatomic) CGAffineTransform transform API_AVAILABLE(ios(7.0));
+        @property (nonatomic) CGFloat alpha;
+        @property (nonatomic) NSInteger zIndex; // default is 0
+        @property (nonatomic, getter=isHidden) BOOL hidden; // As an optimization, UICollectionView might not create a view for items whose hidden attribute is YES
+        @property (nonatomic, strong) NSIndexPath *indexPath;
+        ```
 
