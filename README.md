@@ -2453,6 +2453,10 @@ CGContextRef context_cur = UIGraphicsGetCurrentContext();
 - **核心动画(CAAnimation)**
     - 核心动画 **只作用在CALayer 以及子类上**
     - 核心动画 **不改变 UIView 的真实位置，是假像**
+        - **注意**：有些要到达的**临界值不起效果**时，就要用误差代替
+        ```objc
+        animation.toValue = 0.001,  // 0.001 是因为苹果处理边界值时不是很灵
+        ```
     - **把核心动画添加到 CALayer 对象中**，对象开始执行动画
     ```objc
     // 1. 创建动画对象
