@@ -63,7 +63,10 @@
   【如果有版本显示，则说明已经安装成功】
    pod --version
 
-7. 利用 cocoapods 来导入第三方框到项目中
+```
+#### 3.使用
+```
+1. 利用 cocoapods 来导入第三方框到项目中
     01 cd 到要安装框架的项目文件夹下
     02 在该文件夹中新建一个文件 Podfile 【使用 touch Podfile】
     03 在Podfile文件中写入导入框架所需的信息
@@ -73,10 +76,11 @@
         pod 'AFNetworking', '~> 3.0'
         end
 
-8. 开始下载第三方框架
+2. 开始下载第三方框架
     pod install --no-repo-update
     pod update --no-repo-update
 ```
+
 ![](./images/cocoapods说明.png)
 
 
