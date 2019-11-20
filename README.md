@@ -1885,12 +1885,17 @@ NSString * filePath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, N
 ##### 2. 匹配规则模式
 - 说明：
 ```
-^ : 开头
-$ : 结尾
-* : 任意字
-\d : 代表数字
-[] : 表示一个字符
-{m,n} : 长度范围
+    ^ : 开头
+    $ : 结尾
+    . : 任意字
+    * : 0个或多个字符
+    ? : 代表以后面字符为结束位置
+           \\ 如：匹配“@namexx:"，表达式为: "@.*?:"(意为只要包含@xxx:的字符串就选出来)
+    \d : 代表数字
+    [] : 表示一个字符
+            \\ 如果要匹配内容是否包含"[xxx]"周括号，则表示式:"\\[.*?\\]"
+    () : 表示括号里的字符串是可选的
+    {m,n} : 长度范围
 ```
 - **校验数字的表达式**
 - 来源：https://www.cnblogs.com/zxin/archive/2013/01/26/2877765.html
@@ -2855,8 +2860,18 @@ CGContextRef context_cur = UIGraphicsGetCurrentContext();
     ```
 
 ##### UIView 对象方法
-- 把子控件放到最前面 -badgeNumberLable:(UIView *)view
-- 把子控件放到最后面 -sendSubviewToBack:(UIView *)view
+```objc
+    // 把子控件放到最前面
+    - (void)bringSubviewToFront:(UIView *)view;
+    // 把子控件放到最后面
+    - (void)sendSubviewToBack:(UIView *)view;
+
+    // 把当前 view 内子控件位置 转成指定view内的位置
+    - (CGPoint)convertPoint:(CGPoint)point toCoordinateSpace:(id <UICoordinateSpace>)coordinateSpace API_AVAILABLE(ios(8.0));
+    - (CGPoint)convertPoint:(CGPoint)point fromCoordinateSpace:(id <UICoordinateSpace>)coordinateSpace API_AVAILABLE(ios(8.0));
+    - (CGRect)convertRect:(CGRect)rect toCoordinateSpace:(id <UICoordinateSpace>)coordinateSpace API_AVAILABLE(ios(8.0));
+    - (CGRect)convertRect:(CGRect)rect fromCoordinateSpace:(id <UICoordinateSpace>)coordinateSpace API_AVAILABLE(ios(8.0));
+```
 
 
 
