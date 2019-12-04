@@ -65,11 +65,14 @@
 
         - (4) 在 ~/.ssh/ 目录下创建 config 文件(没有时创建)
             - 里面内容填写下面内容:
+                - yourGitAccount 如 xxx@qq.com
             ```
-            Host git@github.com
-            HostName github.com
-            User git
+            Host github.com
+            User yourGitAccount
+            Hostname ssh.github.com
+            PreferredAuthentications publickey
             IdentityFile ~/.ssh/id_rsa
+            Port 443
             ```
 
 
