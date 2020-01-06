@@ -982,7 +982,7 @@ autLayoutLabel.preferredMaxLayoutWidth = 100 ;
                         CFRunLoopRun();
                         ```
 
-
+    - **RunLoop 的一些实现应用** ：https://www.jianshu.com/p/ac05ac8428ac
 
 
 ### 11 网络请求
