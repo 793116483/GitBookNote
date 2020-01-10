@@ -1683,6 +1683,62 @@ autLayoutLabel.preferredMaxLayoutWidth = 100 ;
 ##### 2. Runime 消息机制
 - 在使用时先导入头文件"objc/message.h"
 
+- **对象的isa、类的isa 与 类的 super_class**
+    ```objc
+    typedef struct objc_class *Class;
+    ```
+
+    ```objc
+    struct objc_class {
+    Class _Nonnull isa  OBJC_ISA_AVAILABILITY;      // 指向类 或 元类，取决于 info (== CLS_CLASS 是指的类 ，==CLS_META 是指的元类)
+
+    #if !__OBJC2__
+        Class _Nullable super_class                              父类 或 父类的元类，取决于 info;
+        const char * _Nonnull name                               类名;
+        long version                                             类的版本，初始化为0，可以通过runtime函数class_setVersion与class_getVersion修改与读取;
+        long info                                                标识信息，如CLS_CLASS 表示该类为普通类，CLS_META 表示该类为元类;
+        long instance_size                                       该类的对象大小（包括从父类继承下来的对象大小）;
+        struct objc_ivar_list * _Nullable ivars                  成员变量Ivar (包含成员变量名，大小，类型);
+        struct objc_method_list * _Nullable * _Nullable methodLists                    如果是普通类 则存对象方法，如果是元类 则存类方法 ；以 SEL(方法名) 中key，方法实现地址作为value;
+        struct objc_cache * _Nonnull cache                       缓存从methodLists查询并调用过的 方法的列表，以备下次直接从该缓存列表查找并调用实现;
+        struct objc_protocol_list * _Nullable protocols          该类遵守的协议列表;
+    #endif
+
+    } OBJC2_UNAVAILABLE;
+    ```
+    ```objc
+    @interface NSObject <NSObject> {
+        Class isa  OBJC_ISA_AVAILABILITY;
+    }
+    ```
+
+    - **(1) 对象的isa指针 指向 当前类(该类是非元类)，该类的isa指针 指向自身元类(该类存在另一块内存地址) ，该元类的isa 指向 根元类(NSObject元类)**
+
+    - (2) **当前类中的存储信息**：看上面objc_class结构体标注内容
+
+    - (3) 方法调用 查找的顺序
+        - **对像调用对象方法**：
+            - 0、 把需要调取的方法名包装成 SEL；
+            - 1、 通过对象的isa指针 找到对应的 普通类；
+            - 2、 在普通类的 cache 对象方法列表中通过方法名SEL作为Key来查找关联对应方法的实现函数入口，找到则通过函数入口地址调用该函数；
+            - 3、 如果没找到则再到 methodLists 方法列表中找，同样以方法名SEL作Key找到关联函数入口地址，有则调用；
+            - 4、 如果还没找到，则用super_class，在父类中从 第2步继续查找，以此类推，找到则调用；
+            - 5、 如果都没找到，则会调用 根父类NSObjcet 的 +(BOOL)resolveInstanceMethod:(SEL)sel 方法表示未找到该方法的实现，抛出异常
+
+        - **类 调用 类方法**
+            - 0、 把需要调取的方法名包装成 SEL；
+            - 1、 通过普通类的isa指针 找到对应的 自身元类；
+            - 2、 在元类的 cache 类方法列表中通过方法名SEL作为Key来查找关联对应方法的实现函数入口，找到则通过函数入口地址调用该函数；
+            - 3、 如果没找到则再到 methodLists 方法列表中找，同样以方法名SEL作Key找到关联函数入口地址，有则调用；
+            - 4、 如果还没找到，则用super_class，在父元类中从 第2步继续查找，以此类推，找到则调用；
+            - 5、 如果都没找到，则会调用 根元类NSObjcet 的 +(BOOL)resolveClassMethod:(SEL)sel 方法表示未找到该方法的实现，抛出异常
+
+    - (4) **关系图**
+
+    ![](./images/isa 、super_class与 普通类 、元类的关系图.png)
+
+- **学习网址**：https://blog.csdn.net/qq_39658251/article/details/80255931
+
 - 发送消息机制
     - 作用：**可以调用一些私有方法**
 
