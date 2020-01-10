@@ -6,7 +6,7 @@
         <meta charset="UTF-8">
         <title>iOS 基础知识 | iOS 基础知识</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="#">
+        <meta name="description" content="Book generated using GitBook">
         <meta name="generator" content="GitBook 1.0.3">
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -31,7 +31,7 @@
 
 
         
-    <div class="book"  data-level="0" data-basepath="." data-revision="1570789149318">
+    <div class="book"  data-level="0" data-basepath="." data-revision="1578205019072">
     
 
 <div class="book-summary">
@@ -158,6 +158,38 @@
             
         </li>
     
+        
+        <li class="chapter " data-level="7" data-path="swift/README.html">
+            
+                
+                    <a href="./swift/README.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                         Swift基础知识
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="8" data-path="iphonedebug.html">
+            
+                
+                    <a href="./iphonedebug.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                         真机调试
+                    </a>
+                
+            
+            
+        </li>
+    
 
 
         
@@ -247,7 +279,7 @@
                 <div class="page-inner">
                 
                 
-                    <section class="normal" id="section-gitbook_124">
+                    <section class="normal" id="section-gitbook_15">
                     
                         <h1 id="ios-">iOS 基础知识</h1>
 <h2 id="ios-">iOS 模式</h2>
@@ -336,6 +368,7 @@
 
 <span class="hljs-preprocessor">#endif</span>
 </code></pre>
+<hr>
 <h2 id="app">一、APP启动过程</h2>
 <ul>
 <li><strong>1.加载每个.m文件的 +(void)load 方法</strong></li>
@@ -350,7 +383,17 @@
 <h5 id="3---__objc__">3. 在编译文件时 系统会自动在每一个文件中定义一个宏 <strong>OBJC</strong></h5>
 <pre><code class="lang-OBJC"><span class="hljs-preprocessor">#define __OBJC__</span>
 </code></pre>
-<h4 id="4-app-icon-">4. 设置app icon 上的提示数字</h4>
+<h4 id="4---const-">4. 宏 与 const 区别</h4>
+<p><img src="images/const与宏区别.png" alt=""></p>
+<ul>
+<li>const 修饰那部分的变量只能读</li>
+</ul>
+<pre><code class="lang-objc"><span class="hljs-keyword">int</span> <span class="hljs-keyword">const</span> *p = &amp;b ;     <span class="hljs-comment">//  *p:只能读 ，  p:可读可写</span>
+<span class="hljs-keyword">int</span> * <span class="hljs-keyword">const</span> p = &amp;b ;    <span class="hljs-comment">//  *p:可读可写 ，p:只能读</span>
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> * <span class="hljs-keyword">const</span> p = &amp;b;<span class="hljs-comment">// *p:只能读 ， p:只能读</span>
+<span class="hljs-keyword">int</span> <span class="hljs-keyword">const</span> * <span class="hljs-keyword">const</span> p = b&amp;;<span class="hljs-comment">// *p:只能读 ， p:只能读</span>
+</code></pre>
+<h4 id="5-app-icon-">5. 设置app icon 上的提示数字</h4>
 <pre><code class="lang-OBJC">    <span class="hljs-built_in">UIApplication</span> * app = [<span class="hljs-built_in">UIApplication</span> sharedApplication];
 
     <span class="hljs-comment">// 在设置 app icon 上的提示数据时， 先必须注册一下用户通知</span>
@@ -359,7 +402,7 @@
 
     app<span class="hljs-variable">.applicationIconBadgeNumber</span> = <span class="hljs-number">10</span>;
 </code></pre>
-<h4 id="5--status-bar--view-controller--status-bar--uiapplication-">5. 系统默认把状态栏 status bar 交给 view controller 来管理，改变这种管理对象（把 status bar 交给 UIApplication 来管理）</h4>
+<h4 id="6--status-bar--view-controller--status-bar--uiapplication-">6. 系统默认把状态栏 status bar 交给 view controller 来管理，改变这种管理对象（把 status bar 交给 UIApplication 来管理）</h4>
 <ul>
 <li><p>在项目中 ifno.plist 中添加一个配制等于 NO</p>
 <p><img src="images/statusBar交给application设置所需的配制.png" alt=""></p>
@@ -595,7 +638,7 @@
 }
 <span class="hljs-keyword">@end</span>
 </code></pre>
-<h3 id="3--xib">3.  XIB两种加载方式</h3>
+<h3 id="3-xib">3. XIB两种加载方式</h3>
 <pre><code class="lang-objc">    <span class="hljs-comment">// 第一种方式</span>
     <span class="hljs-built_in">NSArray</span> * views = [[<span class="hljs-built_in">NSBundle</span> mainBundle] loadNibName:<span class="hljs-string">@"xib名称"</span> owner:<span class="hljs-literal">nil</span> options:<span class="hljs-literal">nil</span>];
 
@@ -688,11 +731,75 @@ autLayoutLabel<span class="hljs-variable">.preferredMaxLayoutWidth</span> = <spa
 </code></pre>
 <h3 id="9-block">9. block</h3>
 <ul>
+<li><p>block是一个对象，可以添加到数组或字典中</p>
+</li>
+<li><p>block 内存管理</p>
+<ul>
+<li><p><strong>注意</strong>：block 是对外部<strong>对象值的地址引用，不是对象名内存地址的引用</strong>，如果对象<strong>加了__block 声明后就是对 对象名内存地址的引用</strong>，对象名内存中存放的地址改变则block内部引用跟着变。</p>
+<ul>
+<li>如果 引用的对象用 <strong>static</strong> 修饰,则与使用<strong>__block效果一样</strong>，对象名地址传递</li>
+</ul>
+<pre><code class="lang-objc"><span class="hljs-built_in">NSMutableArray</span> * arr = [<span class="hljs-built_in">NSMutableArray</span> arrayWithObjects:@<span class="hljs-number">1</span>,@<span class="hljs-number">2</span>,@<span class="hljs-number">3</span>, <span class="hljs-literal">nil</span>];
+<span class="hljs-comment">//    __block NSNumber * num = @14;</span>
+<span class="hljs-keyword">self</span><span class="hljs-variable">.block</span> = ^{
+<span class="hljs-comment">//        NSLog(@"%p === %@",num,num);</span>
+  <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"arr = %@ , count = %ld"</span>,arr,arr<span class="hljs-variable">.count</span>);
+};
+<span class="hljs-keyword">self</span><span class="hljs-variable">.block</span>();
+<span class="hljs-comment">//    num = @10;</span>
+<span class="hljs-comment">//    [arr removeLastObject];</span>
+arr = [<span class="hljs-built_in">NSMutableArray</span> arrayWithObjects:@<span class="hljs-number">4</span>,@<span class="hljs-number">5</span>,@<span class="hljs-number">6</span>, <span class="hljs-literal">nil</span>];
+<span class="hljs-keyword">self</span><span class="hljs-variable">.block</span>(); <span class="hljs-comment">// block内部得到的是 arr 原先指向的对象</span>
+</code></pre>
+</li>
+<li><p>验证方式：打印block对象，可以看到不同的结果</p>
+</li>
+<li><p>MRC 手动管理内存</p>
+<ul>
+<li><strong>全局区</strong>： 只要block内部代码<strong>没有引用局部变量</strong>，block就<strong>放在全局区</strong></li>
+<li><strong>栈区</strong>：只要block内部代码<strong>引用局部变量</strong>，block就<strong>放在栈区</strong></li>
+<li><strong>堆区</strong>：属性使用copy放在堆区中(引用了局部变量放在堆中，如果未引用则放在全局区),不使用retain(因为引用了局部变量时block放在栈区会被释放掉造成野指针)</li>
+</ul>
+</li>
+<li><p>ARC 自动管理内存</p>
+<ul>
+<li>前两点与MRC一样</li>
+<li><strong>strong 与 copy 一样，内部未引用局部变量时放在全局区，引用了局部变量时放在堆中</strong></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p>block的循环引用解决方法</p>
 <pre><code class="lang-objc">__<span class="hljs-keyword">weak</span> <span class="hljs-keyword">typeof</span>(<span class="hljs-keyword">self</span>) weakSelf = <span class="hljs-keyword">self</span> ;
 
 <span class="hljs-comment">// 或者</span>
 __unsafe_unretained <span class="hljs-keyword">typeof</span>(<span class="hljs-keyword">self</span>) weakSelf = <span class="hljs-keyword">self</span> ;
+</code></pre>
+</li>
+<li><p>block 的定义方式</p>
+<pre><code class="lang-objc">  <span class="hljs-comment">// 第一种:没有返回值，也没有参数</span>
+  <span class="hljs-keyword">void</span> (^block1)() = ^{
+  };
+
+  <span class="hljs-comment">// 第二种:没有返回值，有参数</span>
+  <span class="hljs-keyword">void</span> (^block2)(<span class="hljs-keyword">int</span>) = ^(<span class="hljs-keyword">int</span> a){
+  };
+
+  <span class="hljs-comment">// 第三种:有返回值，没参数</span>
+  <span class="hljs-keyword">int</span> (^block3)() = ^{
+      <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;
+  };
+  <span class="hljs-keyword">int</span> (^block3)() = ^<span class="hljs-keyword">int</span>{
+      <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;
+  };
+
+  <span class="hljs-comment">// 第四种：有返回值，有参数</span>
+  <span class="hljs-keyword">int</span> (^block4)(<span class="hljs-keyword">int</span>) = ^<span class="hljs-keyword">int</span>(<span class="hljs-keyword">int</span> a){
+      <span class="hljs-keyword">return</span> a ;
+  };
+  <span class="hljs-keyword">int</span> (^block4)(<span class="hljs-keyword">int</span>) = ^(<span class="hljs-keyword">int</span> a){
+      <span class="hljs-keyword">return</span> a ;
+  };
 </code></pre>
 </li>
 </ul>
@@ -1251,7 +1358,7 @@ __<span class="hljs-keyword">weak</span> <span class="hljs-keyword">typeof</span
 <pre><code class="lang-objc"><span class="hljs-comment">// 如果是子线程，创建子线程的 runLoop , 如果当前线程是主线程，那么就是mainRunLoop</span>
 CFRunLoopRef runLoop = CFRunLoopGetCurrent();
 CFRunLoopObserverRef observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, kCFRunLoopAllActivities, <span class="hljs-literal">YES</span>, <span class="hljs-number">0</span>, ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
-<span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"RunLoop 当前的状态 = %ld"</span>,activity);
+  <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"RunLoop 当前的状态 = %ld"</span>,activity);
 });
 CFRunLoopAddObserver(runLoop, observer, kCFRunLoopCommonModes);
 </code></pre>
@@ -1583,13 +1690,13 @@ Accept-Encoding: gzip           // 客户端支持的数据压缩格式
   [<span class="hljs-built_in">NSURLConnection</span> sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, <span class="hljs-built_in">NSData</span> * _Nullable data, <span class="hljs-built_in">NSError</span> * _Nullable connectionError) {
 
       <span class="hljs-comment">// 把JSON 转成 OC 对象(反序列化)</span>
-<span class="hljs-comment">//        NSJSONReadingMutableContainers = (1UL &lt;&lt; 0), // JSON解析成可变的 数组 和 字典</span>
-<span class="hljs-comment">//        NSJSONReadingMutableLeaves = (1UL &lt;&lt; 1),     // JSON解析成 内部所有的字符串都是可变的,一般不用，有点问题</span>
-<span class="hljs-comment">//        NSJSONReadingFragmentsAllowed = (1UL &lt;&lt; 2),  // JSON解析成 既不是字典也不是数组,则必须用该s枚举值</span>
-<span class="hljs-comment">//        NSJSONReadingAllowFragments = NSJSONReadingFragmentsAllowed</span>
-      <span class="hljs-comment">// 返序列化</span>
-      <span class="hljs-comment">// options 参数:传 NSJSONReadingOptions 也可以传 NSJSONWritingOptions</span>
-      <span class="hljs-built_in">NSDictionary</span> * dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:<span class="hljs-literal">nil</span>];
+      <span class="hljs-comment">//        NSJSONReadingMutableContainers = (1UL &lt;&lt; 0), // JSON解析成可变的 数组 和 字典</span>
+      <span class="hljs-comment">//        NSJSONReadingMutableLeaves = (1UL &lt;&lt; 1),     // JSON解析成 内部所有的字符串都是可变的,一般不用，有点问题</span>
+      <span class="hljs-comment">//        NSJSONReadingFragmentsAllowed = (1UL &lt;&lt; 2),  // JSON解析成 既不是字典也不是数组,则必须用该s枚举值</span>
+      <span class="hljs-comment">//        NSJSONReadingAllowFragments = NSJSONReadingFragmentsAllowed</span>
+              <span class="hljs-comment">// 返序列化</span>
+              <span class="hljs-comment">// options 参数:传 NSJSONReadingOptions 也可以传 NSJSONWritingOptions</span>
+              <span class="hljs-built_in">NSDictionary</span> * dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:<span class="hljs-literal">nil</span>];
 
       <span class="hljs-comment">// 刷新UI</span>
   }];
@@ -2017,19 +2124,19 @@ textEncodingName:(nullable <span class="hljs-built_in">NSString</span> *)name  �
 <pre><code class="lang-objc">  <span class="hljs-preprocessor">#import <span class="hljs-title">&lt;MobileCoreServices/MobileCoreServices.h&gt;</span> // 需要的头文件</span>
 
   -(<span class="hljs-built_in">NSString</span> *)MIMETypeWithFilePath:(<span class="hljs-built_in">NSString</span> *)filePath
-{
-  <span class="hljs-keyword">if</span> (![[<span class="hljs-built_in">NSFileManager</span> defaultManager] fileExistsAtPath:filePath]) {
-      <span class="hljs-keyword">return</span> <span class="hljs-string">@""</span>;
+  {
+      <span class="hljs-keyword">if</span> (![[<span class="hljs-built_in">NSFileManager</span> defaultManager] fileExistsAtPath:filePath]) {
+          <span class="hljs-keyword">return</span> <span class="hljs-string">@""</span>;
+      }
+      CFStringRef UTT = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)([filePath pathExtension]), <span class="hljs-literal">NULL</span>);
+      CFStringRef MIMEType = UTTypeCopyPreferredTagWithClass(UTT, kUTTagClassMIMEType);
+      CFRelease(UTT);
+      <span class="hljs-keyword">if</span> (!MIMEType) {
+          <span class="hljs-comment">// 支持所有的二进制 的 MIMEType</span>
+          <span class="hljs-keyword">return</span> <span class="hljs-string">@"application/octet-stream"</span>;
+      }
+      <span class="hljs-keyword">return</span> (__bridge <span class="hljs-built_in">NSString</span> *)MIMEType ;
   }
-  CFStringRef UTT = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)([filePath pathExtension]), <span class="hljs-literal">NULL</span>);
-  CFStringRef MIMEType = UTTypeCopyPreferredTagWithClass(UTT, kUTTagClassMIMEType);
-  CFRelease(UTT);
-  <span class="hljs-keyword">if</span> (!MIMEType) {
-      <span class="hljs-comment">// 支持所有的二进制 的 MIMEType</span>
-      <span class="hljs-keyword">return</span> <span class="hljs-string">@"application/octet-stream"</span>;
-  }
-  <span class="hljs-keyword">return</span> (__bridge <span class="hljs-built_in">NSString</span> *)MIMEType ;
-}
 </code></pre>
 </li>
 </ul>
@@ -2131,8 +2238,215 @@ xmlParser<span class="hljs-variable">.delegate</span> = <span class="hljs-keywor
 </ul>
 </li>
 </ul>
-<h3 id="12-nsfile-">12 NSFile 文件</h3>
-<h4 id="nsfilemanager-">NSFileManager 文件管理者</h4>
+<h3 id="12-runtime-">12 Runtime 运行时机制</h3>
+<h5 id="1-runtime-">1. Runtime 简介</h5>
+<ul>
+<li><p>runtime 简称运行时机制，<strong>OC就是运行时机制</strong>，也就是运行时候的机制，<strong>其中最主要的就是消息机制</strong></p>
+</li>
+<li><p>对于C语言，<strong>函数的调用在编译的时候决定调用哪个函数</strong></p>
+</li>
+<li><p>对于<strong>OC函数</strong>，属性于<strong>动态调用过程</strong>，在编译的时候并不能决定调用哪个函数，只有在真正运行的时候才会根据函数名称找到对应的函数来调用</p>
+</li>
+<li><p>区别证明：</p>
+<ul>
+<li><p>在编译阶段，<strong>OC</strong>在<strong>不实现指定的对象方法</strong>就可以调用该方法(只是会报一个警告)<strong>通过编译</strong>，只有在运行的过程中调用该方法时引起程序漰溃</p>
+</li>
+<li><p>在编译阶段，<strong>C语言</strong>调用函数时，如果<strong>没有实现该方法</strong>，就<strong>直接报错</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-runime-">2. Runime 消息机制</h5>
+<ul>
+<li><p>在使用时先导入头文件&quot;objc/message.h&quot;</p>
+</li>
+<li><p>发送消息机制</p>
+<ul>
+<li><p>作用：<strong>可以调用一些私有方法</strong></p>
+</li>
+<li><p><strong>任务方法的调用本质</strong> 就是 <strong>发送一个消息</strong>，用runtime发送消息，<strong>OC底层实现通过runtime</strong></p>
+<ul>
+<li><p>比如 [[NSObject alloc] ]调用这个方法,本质发送消息：<strong>id objc_msgSend(id,SEL,...)</strong>，<strong>SEL,后面紧跟传的参数，也可不传</strong></p>
+<ul>
+<li><p>发送一个消息，<strong>id(传self)指定谁发送消息 ，SEL: 被发送的消息</strong></p>
+<pre><code class="lang-objc"><span class="hljs-comment">// [[UIView alloc] initWithFrame:CGRectZero];</span>
+<span class="hljs-comment">// runtime 方法调用本质：就是用 objc_msgSend(id ,SEL); 发送消息</span>
+<span class="hljs-comment">// 发送一个消息，id(传self)指定谁发送消息 ，SEL: 被发送的消息</span>
+<span class="hljs-comment">// objc_getClass("UIView") 可以用 [UIView class] 代替</span>
+<span class="hljs-built_in">UIView</span> * objc = objc_msgSend(objc_getClass(<span class="hljs-string">"NSObject"</span>), sel_registerName(<span class="hljs-string">"alloc"</span>));
+objc = objc_msgSend(objc, <span class="hljs-keyword">@selector</span>(initWithFrame:),CGRectZero);
+</code></pre>
+<ul>
+<li><p><strong>实现发送消息的过程</strong></p>
+<ul>
+<li><p>类方法：存储在 元类方法列表；对象方法：存储在 类对象方法列表</p>
+</li>
+<li><p>第一步：把需要调用的方法先包装成一个方法名，得到一个地址(或索引)</p>
+</li>
+<li>第二步：通过当前类的<strong>isa指针</strong>去<strong>元类的方法列表</strong>中对比<strong>查找类方法</strong></li>
+<li>查到后调用该函数代码块内容</li>
+<li>依此类推，对象方法调用也是一样的，只是列表在不同位置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>objc_msgSend(id ,SEL) 函数调用先配制项目
+<img src="images/objc_msgSend函数调用发送消息机制配制.png" alt=""></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>runtime 一些函数 及 功能</strong></p>
+<ul>
+<li><p><strong>方法交换 method_exchangeImplementations</strong></p>
+<ul>
+<li>方法交换：就是<strong>交换方法实现的代码块</strong></li>
+<li><p>当交换后，调用 method1 就等于实现了 method2 代码块内容，反之，亦然。</p>
+<pre><code class="lang-objc"><span class="hljs-preprocessor">#import <span class="hljs-title">&lt;objc/runtime.h&gt;</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword">@implementation</span> <span class="hljs-title">NSMutableArray</span> (<span class="hljs-title">MethodExchange</span>)</span>
+
++(<span class="hljs-keyword">void</span>)load
+{
+  [<span class="hljs-keyword">super</span> load];
+
+  <span class="hljs-comment">// Class 的相关是用 objc 开头</span>
+  <span class="hljs-comment">// 方法代码块 交换：只是一个方法功能，所以用 method 开头</span>
+  <span class="hljs-comment">// Method 类或对象方法 是通过类的isa指针找，所以用 class_开头</span>
+  <span class="hljs-comment">// NSMutableArray 实际上是 __NSArrayM 类型</span>
+  Method method1 = class_getInstanceMethod(NSClassFromString(<span class="hljs-string">@"__NSArrayM"</span>), <span class="hljs-keyword">@selector</span>(qj_addObject:));
+  Method method2 = class_getInstanceMethod(NSClassFromString(<span class="hljs-string">@"__NSArrayM"</span>), <span class="hljs-keyword">@selector</span>(addObject:));
+  <span class="hljs-comment">// 只能交换一次，不然又会变成方法本身 ，所以放在 +load 方法实现交换(+load方法在app起动时只调一次)</span>
+  method_exchangeImplementations(method1, method2);
+}
+
+-(<span class="hljs-keyword">void</span>)qj_addObject:(<span class="hljs-keyword">id</span>)object
+{
+  <span class="hljs-keyword">if</span> (object) {<span class="hljs-comment">// 这样可以防止添加空数据</span>
+      <span class="hljs-comment">// 通过上面的方法交换后，在使用 [self qj_addObject:] 等于调用了 [self addObjec:]</span>
+      <span class="hljs-comment">// 反之如果调用 [self addObjec:] 就等于调用了 [self qj_addObject:]</span>
+      <span class="hljs-comment">// 所以在这里不能调用 [self addObject:]，否则会造成死循环</span>
+      [<span class="hljs-keyword">self</span> qj_addObject:object];
+  }
+}
+<span class="hljs-keyword">@end</span>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>动态添加方法</strong></p>
+<ul>
+<li><p>顾名思义用到时再添加方法</p>
+</li>
+<li><p>思考：为什么要动态添加方法</p>
+<ul>
+<li><ol>
+<li>动态添方法，可以节省内存；用到时创建一个方法添加到内存中</li>
+</ol>
+</li>
+<li><ol>
+<li>有些时候，一个对象接收到一个传参，这个参数是外界传过来的方法名，外界通知需要调用它的对象方法，你如果没有就先创建一个方法；因为不知道你要调什么方法名，所以就需要动态创建了，即你用时我再创建</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><strong>class_addMethod</strong> 动态创建方法的函数</p>
+<ul>
+<li><p>什么时候创建：<strong>在调用类或对象未实现的方法才需要动态创建</strong></p>
+<ul>
+<li>调用了当前类未实现的类方法 或 对象方法 时，系统自动调用以下方法<pre><code class="lang-objc"><span class="hljs-comment">// 调用了当前类未实现的类方法时，再重写下面方法，创建实现sel方法</span>
++(<span class="hljs-built_in">BOOL</span>)resolveClassMethod:(SEL)sel ;
+<span class="hljs-comment">// 调用了当前类对象未实现的对象方法时</span>
++(<span class="hljs-built_in">BOOL</span>)resolveInstanceMethod:(SEL)sel;
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p>示例</p>
+<ul>
+<li>参数说明<ul>
+<li>cls 参数: 当前类或对像的 Class</li>
+<li>name参数：未实现的方法编号</li>
+<li>imp 参数：与name方法相关联的函数入口</li>
+<li>types参数：是字符串 <strong>每个字符及位置**</strong>对应<strong>的描述了函数需要传的</strong>不同位置参数类型**<ul>
+<li>每种字符所代表的类型是不同的，可在这个文档查看：<pre><code>https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100
+</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-objc"><span class="hljs-preprocessor">#pragma mark - 动态添加方法</span>
+<span class="hljs-comment">// 什么时候调用：当调用 当前类未实现的方法 时调用下面方法</span>
+<span class="hljs-comment">// 下面方法作用：当系统查看到没有 sel类方法时，使用 runtime 动态添加与实现该方法</span>
++(<span class="hljs-built_in">BOOL</span>)resolveInstanceMethod:(SEL)sel
+{
+  <span class="hljs-comment">// 创建 +test:</span>
+  <span class="hljs-keyword">if</span> (sel == NSSelectorFromString(<span class="hljs-string">@"test:"</span>)) {
+      <span class="hljs-comment">// cls 参数: 类形[Class]</span>
+      <span class="hljs-comment">// name参数: 方法名[sel(SEL)]</span>
+      <span class="hljs-comment">// imp 参数: 函数实现入口 [(IMP)test],test 是函数 void test(id self,SEL _cmd)</span>
+      <span class="hljs-comment">// types参数: 是字符串 每个字符及位置对应的描述了函数需要传的参数类型，test函数的第二个和第三个参数类型必须用 “@:”</span>
+      <span class="hljs-comment">//          比如 "v@:" 表示：v(表示void类型，字符所在位置0就是返回值类型) ,</span>
+                              <span class="hljs-comment">// @(表示id类型，函数第1个传参位置的类型是 id类型)；</span>
+                              <span class="hljs-comment">// :(表示SEL类型，函数第二个参数位置的类型是 SEL方法类型 ),</span>
+                  <span class="hljs-comment">// 可以对照每一个传的字符代表的参数类型</span>
+      <span class="hljs-comment">// 下面的方法是用于 sel 与 test函数 邦定</span>
+      class_addMethod(<span class="hljs-keyword">self</span>, sel, (IMP)test, <span class="hljs-string">"v@:@"</span>);
+
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">YES</span> ;
+  }
+  <span class="hljs-keyword">return</span> [<span class="hljs-keyword">super</span> resolveClassMethod:sel];
+}
+
+<span class="hljs-comment">// 函数实现(定义参数内必须包含下面两个参数，是系统自动传的)</span>
+<span class="hljs-comment">// self 参数: 系统自动传,代码当前类</span>
+<span class="hljs-comment">// _cmd 参数: 当前方法编号,系统自动传的</span>
+<span class="hljs-comment">// number参数：自己定义的，从外面传的</span>
+<span class="hljs-keyword">void</span> test(<span class="hljs-keyword">id</span> <span class="hljs-keyword">self</span> , SEL _cmd , <span class="hljs-built_in">NSNumber</span> * number)
+{
+  <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"动态调用了test方法,number = %@"</span>,number);
+}
+</code></pre>
+<pre><code class="lang-objc"><span class="hljs-comment">// 假设在 NSMutableArray分类实现如上方法及函数</span>
+
+<span class="hljs-comment">// 调用 NSMutableArray 对象 未实现的方法 test: ,动态创建一个函数与之关联</span>
+objc_msgSend([[<span class="hljs-built_in">NSMutableArray</span> alloc] init], <span class="hljs-keyword">@selector</span>(test:),@<span class="hljs-number">10</span>);
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>动态创建属性</strong></p>
+<ul>
+<li><p>实际就<strong>是动态关联一个属性</strong></p>
+</li>
+<li><p><strong>用途</strong>：可以随时在对象上加一个属性，<strong>这样一来 分类也可以添加&quot;属性&quot;了</strong>(注：分类原本添加的只有属性get和set方法，现在有了runtime也可以关联属性了)</p>
+</li>
+<li><p><strong>关联属性 方案1</strong></p>
+<pre><code class="lang-objc"><span class="hljs-preprocessor">#pragma mark - 在分类中 关联 ids属性</span>
+-(<span class="hljs-keyword">void</span>)setIds:(<span class="hljs-built_in">NSString</span> *)ids
+{
+  objc_setAssociatedObject(<span class="hljs-keyword">self</span>, <span class="hljs-string">@"ids"</span>, ids, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+-(<span class="hljs-built_in">NSString</span> *)ids
+{
+  <span class="hljs-keyword">return</span> objc_getAssociatedObject(<span class="hljs-keyword">self</span>, <span class="hljs-string">@"ids"</span>);
+}
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="13-nsfile-">13 NSFile 文件</h3>
+<h5 id="nsfilemanager-">NSFileManager 文件管理者</h5>
 <ul>
 <li>获取指定路径的<strong>文件数据大小</strong>（length）<pre><code class="lang-objc">  <span class="hljs-comment">// 获取 filePath 路径的文件数据大小</span>
   <span class="hljs-built_in">NSDictionary</span> * attributesForFile = [[<span class="hljs-built_in">NSFileManager</span> defaultManager] attributesOfItemAtPath:filePath error:<span class="hljs-literal">nil</span>];
@@ -2142,7 +2456,7 @@ xmlParser<span class="hljs-variable">.delegate</span> = <span class="hljs-keywor
 </code></pre>
 </li>
 </ul>
-<h4 id="nsfilehandle-">NSFileHandle 文件句丙(指针)</h4>
+<h5 id="nsfilehandle-">NSFileHandle 文件句丙(指针)</h5>
 <ul>
 <li>用途：可以直接在文件存储的<strong>沙盒下拼接文件</strong></li>
 <li>注意：在创建时打开了文件拼接的大门，在拼接完后<strong>需要关闭</strong>([fileHeadle closeFile])</li>
@@ -2164,6 +2478,103 @@ xmlParser<span class="hljs-variable">.delegate</span> = <span class="hljs-keywor
   [fileHeadle closeFile];
 </code></pre>
 </li>
+</ul>
+<h3 id="14-">14 正则表达式匹配</h3>
+<h5 id="1-">1. 示例</h5>
+<pre><code class="lang-objc">    <span class="hljs-comment">// 需要匹配的字符串</span>
+    <span class="hljs-built_in">NSString</span> * str = <span class="hljs-string">@"xxxxdfsafd32324dsf4r32432"</span>;
+    <span class="hljs-comment">// 匹配规则模式</span>
+    <span class="hljs-built_in">NSString</span> * pattern = <span class="hljs-string">@"^xx[a-z]"</span>;
+    <span class="hljs-comment">//</span>
+    NSRegularExpression * regular = [NSRegularExpression regularExpressionWithPattern:pattern options:<span class="hljs-number">0</span> error:<span class="hljs-literal">nil</span>];
+    <span class="hljs-comment">// 可能匹配到很多个结果</span>
+    <span class="hljs-built_in">NSArray</span>&lt;NSTextCheckingResult *&gt; * results = [regular matchesInString:str options:<span class="hljs-number">0</span> range:NSMakeRange(<span class="hljs-number">0</span>, str<span class="hljs-variable">.length</span>)];
+    <span class="hljs-keyword">for</span> (NSTextCheckingResult * result <span class="hljs-keyword">in</span> results) {
+        <span class="hljs-built_in">NSLog</span>(<span class="hljs-string">@"%@"</span>,[NSValue valueWithRange:result<span class="hljs-variable">.range</span>]);
+    }
+</code></pre>
+<h5 id="2-">2. 匹配规则模式</h5>
+<ul>
+<li>说明：<pre><code>  ^ : 开头
+  $ : 结尾
+  . : 任意字
+  * : 0个或多个字符
+  ? : 代表以后面字符为结束位置
+         \\ 如：匹配“@namexx:&quot;，表达式为: &quot;@.*?:&quot;(意为只要包含@xxx:的字符串就选出来)
+  \d : 代表数字
+  [] : 表示一个字符
+          \\ 如果要匹配内容是否包含&quot;[xxx]&quot;周括号，则表示式:&quot;\\[.*?\\]&quot;
+  () : 表示括号里的字符串是可选的
+  {m,n} : 长度范围
+</code></pre></li>
+<li><strong>校验数字的表达式</strong></li>
+<li>来源：<a href="https://www.cnblogs.com/zxin/archive/2013/01/26/2877765.html" target="_blank">https://www.cnblogs.com/zxin/archive/2013/01/26/2877765.html</a><pre><code>数字：^[0-9]*$
+n位的数字：^\d{n}$
+至少n位的数字：^\d{n,}$
+m-n位的数字：^\d{m,n}$
+零和非零开头的数字：^(0|[1-9][0-9]*)$
+非零开头的最多带两位小数的数字：^([1-9][0-9]*)+(.[0-9]{1,2})?$
+带1-2位小数的正数或负数：^(\-)?\d+(\.\d{1,2})?$
+正数、负数、和小数：^(\-|\+)?\d+(\.\d+)?$
+有两位小数的正实数：^[0-9]+(.[0-9]{2})?$
+有1~3位小数的正实数：^[0-9]+(.[0-9]{1,3})?$
+非零的正整数：^[1-9]\d*$ 或 ^([1-9][0-9]*){1,3}$ 或 ^\+?[1-9][0-9]*$
+非零的负整数：^\-[1-9][]0-9&quot;*$ 或 ^-[1-9]\d*$
+非负整数：^\d+$ 或 ^[1-9]\d*|0$
+非正整数：^-[1-9]\d*|0$ 或 ^((-\d+)|(0+))$
+非负浮点数：^\d+(\.\d+)?$ 或 ^[1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0$
+非正浮点数：^((-\d+(\.\d+)?)|(0+(\.0+)?))$ 或 ^(-([1-9]\d*\.\d*|0\.\d*[1-9]\d*))|0?\.0+|0$
+正浮点数：^[1-9]\d*\.\d*|0\.\d*[1-9]\d*$ 或 ^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$
+负浮点数：^-([1-9]\d*\.\d*|0\.\d*[1-9]\d*)$ 或 ^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$
+浮点数：^(-?\d+)(\.\d+)?$ 或 ^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$
+</code></pre></li>
+<li><strong>校验字符的表达式</strong><pre><code>汉字：^[\u4e00-\u9fa5]{0,}$
+英文和数字：^[A-Za-z0-9]+$ 或 ^[A-Za-z0-9]{4,40}$
+长度为3-20的所有字符：^.{3,20}$
+由26个英文字母组成的字符串：^[A-Za-z]+$
+由26个大写英文字母组成的字符串：^[A-Z]+$
+由26个小写英文字母组成的字符串：^[a-z]+$
+由数字和26个英文字母组成的字符串：^[A-Za-z0-9]+$
+由数字、26个英文字母或者下划线组成的字符串：^\w+$ 或 ^\w{3,20}$
+中文、英文、数字包括下划线：^[\u4E00-\u9FA5A-Za-z0-9_]+$
+中文、英文、数字但不包括下划线等符号：^[\u4E00-\u9FA5A-Za-z0-9]+$ 或 ^[\u4E00-\u9FA5A-Za-z0-9]{2,20}$
+可以输入含有^%&amp;&#39;,;=?$\&quot;等字符：[^%&amp;&#39;,;=?$\x22]+
+禁止输入含有~的字符：[^~\x22]+
+</code></pre></li>
+<li><strong>特殊需求表达式</strong><pre><code>01 Email地址：^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$
+02 域名：[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+/.?
+03 InternetURL：[a-zA-z]+://[^\s]* 或 ^http://([\w-]+\.)+[\w-]+(/[\w-./?%&amp;=]*)?$
+04 手机号码：^(13[0-9]|14[0-9]|15[0-9]|16[0-9]|17[0-9]|18[0-9]|19[0-9])\d{8}$ (由于工信部放号段不定时，所以建议使用泛解析 ^([1][3,4,5,6,7,8,9])\d{9}$)
+05 电话号码(&quot;XXX-XXXXXXX&quot;、&quot;XXXX-XXXXXXXX&quot;、&quot;XXX-XXXXXXX&quot;、&quot;XXX-XXXXXXXX&quot;、&quot;XXXXXXX&quot;和&quot;XXXXXXXX)：^(\(\d{3,4}-)|\d{3.4}-)?\d{7,8}$
+06 国内电话号码(0511-4405222、021-87888822)：\d{3}-\d{8}|\d{4}-\d{7}
+07 18位身份证号码(数字、字母x结尾)：^((\d{18})|([0-9x]{18})|([0-9X]{18}))$
+08 帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线)：^[a-zA-Z][a-zA-Z0-9_]{4,15}$
+09 密码(以字母开头，长度在6~18之间，只能包含字母、数字和下划线)：^[a-zA-Z]\w{5,17}$
+10 强密码(必须包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间)：^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$
+11 日期格式：^\d{4}-\d{1,2}-\d{1,2}
+12 一年的12个月(01～09和1～12)：^(0?[1-9]|1[0-2])$
+13 一个月的31天(01～09和1～31)：^((0?[1-9])|((1|2)[0-9])|30|31)$
+14 钱的输入格式：
+  1.有四种钱的表示形式我们可以接受:&quot;10000.00&quot; 和 &quot;10,000.00&quot;, 和没有 &quot;分&quot; 的 &quot;10000&quot; 和 &quot;10,000&quot;：^[1-9][0-9]*$
+  2.这表示任意一个不以0开头的数字,但是,这也意味着一个字符&quot;0&quot;不通过,所以我们采用下面的形式：^(0|[1-9][0-9]*)$
+  3.一个0或者一个不以0开头的数字.我们还可以允许开头有一个负号：^(0|-?[1-9][0-9]*)$
+  4.这表示一个0或者一个可能为负的开头不为0的数字.让用户以0开头好了.把负号的也去掉,因为钱总不能是负的吧.下面我们要加的是说明可能的小数部分：^[0-9]+(.[0-9]+)?$
+  5.必须说明的是,小数点后面至少应该有1位数,所以&quot;10.&quot;是不通过的,但是 &quot;10&quot; 和 &quot;10.2&quot; 是通过的：^[0-9]+(.[0-9]{2})?$
+  6.这样我们规定小数点后面必须有两位,如果你认为太苛刻了,可以这样：^[0-9]+(.[0-9]{1,2})?$
+  7.这样就允许用户只写一位小数.下面我们该考虑数字中的逗号了,我们可以这样：^[0-9]{1,3}(,[0-9]{3})*(.[0-9]{1,2})?$
+  8.1到3个数字,后面跟着任意个 逗号+3个数字,逗号成为可选,而不是必须：^([0-9]+|[0-9]{1,3}(,[0-9]{3})*)(.[0-9]{1,2})?$
+  备注：这就是最终结果了,别忘了&quot;+&quot;可以用&quot;*&quot;替代如果你觉得空字符串也可以接受的话(奇怪,为什么?)最后,别忘了在用函数时去掉去掉那个反斜杠,一般的错误都在这里
+24 xml文件：^([a-zA-Z]+-?)+[a-zA-Z0-9]+\\.[x|X][m|M][l|L]$
+25 中文字符的正则表达式：[\u4e00-\u9fa5]
+26 双字节字符：[^\x00-\xff]    (包括汉字在内，可以用来计算字符串的长度(一个双字节字符长度计2，ASCII字符计1))
+27 空白行的正则表达式：\n\s*\r    (可以用来删除空白行)
+28 HTML标记的正则表达式：&lt;(\S*?)[^&gt;]*&gt;.*?&lt;/\1&gt;|&lt;.*? /&gt;    (网上流传的版本太糟糕，上面这个也仅仅能部分，对于复杂的嵌套标记依旧无能为力)
+29 首尾空白字符的正则表达式：^\s*|\s*$或(^\s*)|(\s*$)    (可以用来删除行首行尾的空白字符(包括空格、制表符、换页符等等)，非常有用的表达式)
+30 腾讯QQ号：[1-9][0-9]{4,}    (腾讯QQ号从10000开始)
+31 中国邮政编码：[1-9]\d{5}(?!\d)    (中国邮政编码为6位数字)
+32 IP地址：\d+\.\d+\.\d+\.\d+    (提取IP地址时有用)
+33 IP地址：((?:(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d))    (由@飞龙三少 提供,感谢共享)
+</code></pre></li>
 </ul>
 <h2 id="uikit-">三、UIKit 框架</h2>
 <h3 id="quartz2d">Quartz2D</h3>
@@ -2765,7 +3176,12 @@ NS_ASSUME_NONNULL_END
 <li><p><strong>核心动画(CAAnimation)</strong></p>
 <ul>
 <li>核心动画 <strong>只作用在CALayer 以及子类上</strong></li>
-<li>核心动画 <strong>不改变 UIView 的真实位置，是假像</strong></li>
+<li>核心动画 <strong>不改变 UIView 的真实位置，是假像</strong><ul>
+<li><strong>注意</strong>：有些要到达的<strong>临界值不起效果</strong>时，就要用误差代替<pre><code class="lang-objc">animation<span class="hljs-variable">.toValue</span> = <span class="hljs-number">0.001</span>,  <span class="hljs-comment">// 0.001 是因为苹果处理边界值时不是很灵</span>
+</code></pre>
+</li>
+</ul>
+</li>
 <li><p><strong>把核心动画添加到 CALayer 对象中</strong>，对象开始执行动画</p>
 <pre><code class="lang-objc"><span class="hljs-comment">// 1. 创建动画对象</span>
 CABasicAnimation * animation = [CABasicAnimation animation];
@@ -2958,7 +3374,7 @@ animation<span class="hljs-variable">.toValue</span> = [NSValue valueWithCATrans
 </ul>
 </li>
 <li><p>右滑手势实现</p>
-<pre><code class="lang-objc">  <span class="hljs-comment">// 使用 runtime 动态获取类的所有属性</span>
+<pre><code class="lang-objc"><span class="hljs-comment">// 使用 runtime 动态获取类的所有属性</span>
 <span class="hljs-comment">//    int onCont  ;</span>
 <span class="hljs-comment">// 只能动态获取当前类定义的所有属性，即获取不到子类的属性 或者 父类的属性</span>
 <span class="hljs-comment">// 只为找到 _targets 属性名</span>
@@ -2993,16 +3409,25 @@ UIPanGestureRecognizer * navPanGesture = [[UIPanGestureRecognizer alloc] initWit
 <h3 id="webview">WebView</h3>
 <h4 id="uiview-">UIView 相关的属性</h4>
 <ul>
+<li><p><strong>bounds</strong> : 相对于自身的可视区域在内容的区域</p>
+<ul>
+<li><p><strong>改变了 origin</strong> 就是改变view内的所有子控件整体移动，但 view<strong>相对于父控件位置还是不变，只是内容的位置变了</strong></p>
+</li>
+<li><p><strong>scrollView可以滑动的本质是改变 bounds.origin 来实现的</strong></p>
+</li>
+</ul>
+</li>
 <li><p>frame</p>
 <ul>
+<li><strong>改变了 origin</strong> 就是改变view在父控件的位置</li>
 <li><p>CGRact 属性，代表位置</p>
 <pre><code class="lang-objc">
-  <span class="hljs-comment">// view.frame.origin.y += 100 // 这样子做不行的</span>
+<span class="hljs-comment">// view.frame.origin.y += 100 // 这样子做不行的</span>
 
 <span class="hljs-comment">// 下面的方法是可以实现的</span>
-  CGRact frame = view<span class="hljs-variable">.frame</span>;
-  frame<span class="hljs-variable">.origin</span><span class="hljs-variable">.y</span> += <span class="hljs-number">100</span> ;
-  view<span class="hljs-variable">.frame</span> = frame ;
+CGRact frame = view<span class="hljs-variable">.frame</span>;
+frame<span class="hljs-variable">.origin</span><span class="hljs-variable">.y</span> += <span class="hljs-number">100</span> ;
+view<span class="hljs-variable">.frame</span> = frame ;
 </code></pre>
 </li>
 </ul>
@@ -3087,11 +3512,18 @@ UIPanGestureRecognizer * navPanGesture = [[UIPanGestureRecognizer alloc] initWit
 </ul>
 </li>
 </ul>
-<h4 id="uiview-">UIView 对象方法</h4>
-<ul>
-<li>把子控件放到最前面 -badgeNumberLable:(UIView *)view</li>
-<li>把子控件放到最后面 -sendSubviewToBack:(UIView *)view</li>
-</ul>
+<h5 id="uiview-">UIView 对象方法</h5>
+<pre><code class="lang-objc">    <span class="hljs-comment">// 把子控件放到最前面</span>
+    - (<span class="hljs-keyword">void</span>)bringSubviewToFront:(<span class="hljs-built_in">UIView</span> *)view;
+    <span class="hljs-comment">// 把子控件放到最后面</span>
+    - (<span class="hljs-keyword">void</span>)sendSubviewToBack:(<span class="hljs-built_in">UIView</span> *)view;
+
+    <span class="hljs-comment">// 把当前 view 内子控件位置 转成指定view内的位置</span>
+    - (<span class="hljs-built_in">CGPoint</span>)convertPoint:(<span class="hljs-built_in">CGPoint</span>)point toCoordinateSpace:(<span class="hljs-keyword">id</span> &lt;UICoordinateSpace&gt;)coordinateSpace API_AVAILABLE(ios(<span class="hljs-number">8.0</span>));
+    - (<span class="hljs-built_in">CGPoint</span>)convertPoint:(<span class="hljs-built_in">CGPoint</span>)point fromCoordinateSpace:(<span class="hljs-keyword">id</span> &lt;UICoordinateSpace&gt;)coordinateSpace API_AVAILABLE(ios(<span class="hljs-number">8.0</span>));
+    - (<span class="hljs-built_in">CGRect</span>)convertRect:(<span class="hljs-built_in">CGRect</span>)rect toCoordinateSpace:(<span class="hljs-keyword">id</span> &lt;UICoordinateSpace&gt;)coordinateSpace API_AVAILABLE(ios(<span class="hljs-number">8.0</span>));
+    - (<span class="hljs-built_in">CGRect</span>)convertRect:(<span class="hljs-built_in">CGRect</span>)rect fromCoordinateSpace:(<span class="hljs-keyword">id</span> &lt;UICoordinateSpace&gt;)coordinateSpace API_AVAILABLE(ios(<span class="hljs-number">8.0</span>));
+</code></pre>
 <h3 id="uiimage-">UIImage 加载方式的区别</h3>
 <ul>
 <li><p>方式一：占用资源</p>
@@ -3254,6 +3686,48 @@ CGImageCreateWithImageInRect(CGImageRef  _Nullable image, <span class="hljs-buil
  <span class="hljs-built_in">NSArray</span> * indexPathArray = <span class="hljs-keyword">self</span><span class="hljs-variable">.tableView</span><span class="hljs-variable">.indexPathsForSelectedRows</span> ;
 </code></pre>
 </li>
+</ul>
+<h2 id="uicollectionview">UICollectionView</h2>
+<h4 id="uicollectionviewflowlayout-">UICollectionViewFlowLayout 自定义</h4>
+<ul>
+<li><p><strong>UICollectionViewLayout</strong></p>
+<ul>
+<li><p>自定义需要实现的方法</p>
+<ul>
+<li>可以实现一些比较好看的效果</li>
+</ul>
+<pre><code class="lang-objc">  <span class="hljs-comment">// Subclasses should always call super if they override.</span>
+  <span class="hljs-comment">// 准备布局</span>
+  - (<span class="hljs-keyword">void</span>)prepareLayout;
+
+  <span class="hljs-comment">// 在rect区域内，每个显示在该区域的 cell 一些属性设置，可以从super获取后就可以改每一个cell的布局</span>
+  - (nullable <span class="hljs-built_in">NSArray</span>&lt;__kindof UICollectionViewLayoutAttributes *&gt; *)layoutAttributesForElementsInRect:(<span class="hljs-built_in">CGRect</span>)rect;
+
+  <span class="hljs-comment">// 当滑动(bounds改变内容位置)时，是否刷新布局(前两个方法)</span>
+  - (<span class="hljs-built_in">BOOL</span>)shouldInvalidateLayoutForBoundsChange:(<span class="hljs-built_in">CGRect</span>)newBounds;
+</code></pre>
+<ul>
+<li>在重新刷新显示的cell属性可以更改以下属性 <strong>UICollectionViewLayoutAttributes</strong><pre><code class="lang-objc"><span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>) <span class="hljs-built_in">CGRect</span> frame;
+<span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>) <span class="hljs-built_in">CGPoint</span> center;
+<span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>) <span class="hljs-built_in">CGSize</span> size;
+<span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>) CATransform3D transform3D;
+<span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>) <span class="hljs-built_in">CGRect</span> bounds API_AVAILABLE(ios(<span class="hljs-number">7.0</span>));
+<span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>) CGAffineTransform transform API_AVAILABLE(ios(<span class="hljs-number">7.0</span>));
+<span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>) <span class="hljs-built_in">CGFloat</span> alpha;
+<span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>) <span class="hljs-built_in">NSInteger</span> zIndex; <span class="hljs-comment">// default is 0</span>
+<span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, getter=isHidden) <span class="hljs-built_in">BOOL</span> hidden; <span class="hljs-comment">// As an optimization, UICollectionView might not create a view for items whose hidden attribute is YES</span>
+<span class="hljs-keyword">@property</span> (<span class="hljs-keyword">nonatomic</span>, <span class="hljs-keyword">strong</span>) <span class="hljs-built_in">NSIndexPath</span> *indexPath;
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="uitextview">UITextView</h2>
+<ul>
+<li>图文混排
+<img src="images/UITextView图文混排的使用.png" alt=""></li>
 </ul>
 
                     

@@ -33,7 +33,7 @@
 
 
         
-    <div class="book"  data-level="3" data-basepath=".." data-revision="1570789149318">
+    <div class="book"  data-level="3" data-basepath=".." data-revision="1578205019072">
     
 
 <div class="book-summary">
@@ -160,6 +160,38 @@
             
         </li>
     
+        
+        <li class="chapter " data-level="7" data-path="swift/README.html">
+            
+                
+                    <a href="../swift/README.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                         Swift基础知识
+                    </a>
+                
+            
+            
+        </li>
+    
+        
+        <li class="chapter " data-level="8" data-path="iphonedebug.html">
+            
+                
+                    <a href="../iphonedebug.html">
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                         真机调试
+                    </a>
+                
+            
+            
+        </li>
+    
 
 
         
@@ -249,7 +281,7 @@
                 <div class="page-inner">
                 
                 
-                    <section class="normal" id="section-gitbook_125">
+                    <section class="normal" id="section-gitbook_19">
                     
                         <h1 id="oc">OC的一些代码功能</h1>
 <h3 id="">一、多线程代码</h3>
@@ -273,6 +305,69 @@
 <span class="hljs-keyword">typedef</span> NS_OPTIONS(<span class="hljs-built_in">NSInteger</span>, QJDirc) {
     QJDircTop = <span class="hljs-number">1</span>&lt;&lt;<span class="hljs-number">1</span> ,
 };
+</code></pre>
+<h3 id="-">三、代码块 功能</h3>
+<pre><code class="lang-objc">    <span class="hljs-built_in">UIView</span> * view = ({
+        <span class="hljs-built_in">UIView</span> * view = [[<span class="hljs-built_in">UIView</span> alloc] init];
+        view<span class="hljs-variable">.frame</span> = CGRectMake(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">100</span>, <span class="hljs-number">100</span>);
+        <span class="hljs-comment">// 最后一行作为值返回 , 这样写的代码块内容整体与 view相关设置，看着层次分明</span>
+        view ;
+    });
+</code></pre>
+<h3 id="-">四、分类 功能</h3>
+<ul>
+<li>颜色</li>
+</ul>
+<pre><code class="lang-objc">+ (<span class="hljs-built_in">UIColor</span> *)colorFromHexString:(<span class="hljs-built_in">NSString</span> *)hex
+{
+    <span class="hljs-built_in">NSString</span> *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    <span class="hljs-comment">// String should be 6 or 8 characters</span>
+
+    <span class="hljs-keyword">if</span> ([cString length] &lt; <span class="hljs-number">6</span>) <span class="hljs-keyword">return</span> [<span class="hljs-built_in">UIColor</span> blackColor];
+    <span class="hljs-comment">// strip 0X if it appears</span>
+    <span class="hljs-keyword">if</span> ([cString hasPrefix:<span class="hljs-string">@"0X"</span>]) cString = [cString substringFromIndex:<span class="hljs-number">2</span>];
+    <span class="hljs-keyword">if</span> ([cString hasPrefix:<span class="hljs-string">@"#"</span>]) cString = [cString substringFromIndex:<span class="hljs-number">1</span>];
+    <span class="hljs-keyword">if</span> ([cString length] != <span class="hljs-number">6</span>) <span class="hljs-keyword">return</span> [<span class="hljs-built_in">UIColor</span> blackColor];
+
+    <span class="hljs-comment">// Separate into r, g, b substrings</span>
+
+    <span class="hljs-built_in">NSRange</span> range;
+    range<span class="hljs-variable">.location</span> = <span class="hljs-number">0</span>;
+    range<span class="hljs-variable">.length</span> = <span class="hljs-number">2</span>;
+    <span class="hljs-built_in">NSString</span> *rString = [cString substringWithRange:range];
+    range<span class="hljs-variable">.location</span> = <span class="hljs-number">2</span>;
+    <span class="hljs-built_in">NSString</span> *gString = [cString substringWithRange:range];
+    range<span class="hljs-variable">.location</span> = <span class="hljs-number">4</span>;
+    <span class="hljs-built_in">NSString</span> *bString = [cString substringWithRange:range];
+    <span class="hljs-comment">// Scan values</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> r, g, b;
+
+    [[NSScanner scannerWithString:rString] scanHexInt:&amp;r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&amp;g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&amp;b];
+
+    <span class="hljs-keyword">return</span> [<span class="hljs-keyword">self</span> colorFromR:r G:g B:b];
+}
+
++ (<span class="hljs-built_in">UIColor</span> *)colorFromHexNumber:(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>)hex
+{
+    <span class="hljs-comment">/**
+     * mac内存存储为小端：FFFFFF00 &lt;-高位在后
+     */</span>
+    <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> r, g, b;
+    r = (hex &amp; <span class="hljs-number">0xFF0000</span>) &gt;&gt; <span class="hljs-number">16</span>;
+    g = (hex &amp; <span class="hljs-number">0x00FF00</span>) &gt;&gt; <span class="hljs-number">8</span>;
+    b = (hex &amp; <span class="hljs-number">0x0000FF</span>);
+    <span class="hljs-keyword">return</span> [<span class="hljs-keyword">self</span> colorFromR:r G:g B:b];
+}
+
++ (<span class="hljs-built_in">UIColor</span> *)colorFromR:(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span>)r G:(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span>)g B:(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span>)b
+{
+    <span class="hljs-keyword">return</span> [<span class="hljs-built_in">UIColor</span> colorWithRed:((<span class="hljs-keyword">float</span>) r / <span class="hljs-number">255.0</span>f)
+                           green:((<span class="hljs-keyword">float</span>) g / <span class="hljs-number">255.0</span>f)
+                            blue:((<span class="hljs-keyword">float</span>) b / <span class="hljs-number">255.0</span>f)
+                           alpha:<span class="hljs-number">1.0</span>f];
+}
 </code></pre>
 
                     
