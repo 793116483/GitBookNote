@@ -2031,7 +2031,50 @@ m-n位的数字：^\d{m,n}$
 
 ## 三、UIKit 框架
 
-### Quartz2D
+### 绘图
+
+#### UIBezierPath 、Core Graphics == Quartz 2D 、OpenGL
+
+- **1、UIBezierPath 、( Core Graphics == Quartz 2D) 、OpenGL 关系**
+    - UIBezierPath 封装了 Core Graphics
+
+    - Core Graphics 封装了 Quartz 2D ，两框架是完全等价(即 Core Graphics 框架没有扩充新的内容)
+        - **Quartz 2D 与 Quartz Extreme 组成了 Quartz 框架 **
+
+    - Quartz 2D 绘图命令 转成 OpenGL 命令，然后再使用GPU实现绘图；Quartz Extreme 加速 GPU 绘图的速度
+
+- **2、实现2D绘图的过程**
+    - **(1) 使用 CPU 开始在线程中执行的任务**
+        - 第1步：PU 调度 主线程 执行 绘图代码( UIBezierPath 、Core Graphics 代码)
+
+        - 第2步：然后 CPU 通过计算确定View的位置与大小、通过处理逻辑 把底层的 Quartz 2D 转成 OpenGL 命令
+
+        - 第3步：把 OpenGL 命令 交给 GPU
+
+    - **(2) 使用 GPU 进行像素填充过程**
+        - GPU 拿到 OpenGL 命令 ，然后把命令转成像素数据，把对应像素填充到 View上对应的位置
+
+        - 所有的像素点填充完后，数据再放到缓存区；通知CPU获取数据展示View的像素内容
+
+- **3、实现3D绘图 (如：核心动画) **
+    - **3D绘图 是基于 OpenGL 绘图的**
+
+    - 过程：
+        - **(1) 使用 CPU 开始在线程中执行的任务**
+            - 第1步：PU 调度 主线程 执行 绘图代码(核心动画、3D 代码)
+
+            - 第2步：然后 CPU 通过计算确定View的 “空间” 位置与大小(视觉效果，数据处理与矩阵映射有关)、通过处理 转成 OpenGL 命令
+
+            - 第3步：把 OpenGL 命令 交给 GPU
+
+        - **(2) 使用 GPU 进行像素填充过程**
+            - GPU 拿到 OpenGL 命令 ，然后把命令转成像素数据，把对应像素填充到 View上对应的位置
+
+            - 所有的像素点填充完后，数据再放到缓存区；通知CPU获取数据展示View的像素内容
+
+
+#### 绘图具体的应用
+
 - **实际上是在 图层 CALayer 上实现画图**
 - 可以实现：画线、矩形、圆、椭圆、字符串、图片 等等
 - 一个学习博客：https://blog.csdn.net/iteye_18480/article/details/82524981
