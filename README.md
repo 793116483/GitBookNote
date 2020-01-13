@@ -2074,6 +2074,8 @@ m-n位的数字：^\d{m,n}$
 
             - 3.核心动画 是基于OpenGL 实现3D动画，
 
+            - 4.一块标准的GPU主要包括2D Engine、3D Engine、VideoProcessing Engine、FSAA Engine、显存管理单元等。其中，3D运算中起决定作用的是3DEngine，这是现代3D显卡的灵魂，也是区别GPU等级的重要标志
+
 
 #### 绘图具体的应用
 
