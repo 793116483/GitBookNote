@@ -2389,6 +2389,9 @@ CGContextRef context_cur = UIGraphicsGetCurrentContext();
         [CATransaction commit];
         ```
 
+    - **注意 设置属性时 优化**
+        - **图形的生成，避免触发离屏渲染**：**CALayer 的 border、圆角、阴影、遮罩（mask），CASharpLayer 的矢量图形显示**，通常会**触发离屏渲染**（offscreen rendering），而**离屏渲染通常发生在 GPU 中**。当一个列表视图中出现大量圆角的 CALayer，并且快速滑动时，可以观察到 **GPU 资源已经占满**，而 **CPU 资源消耗很少。这时界面仍然能正常滑动，但平均帧数会降到很低**。为了避免这种情况，可以尝试**开启 CALayer.shouldRasterize 属性**，但这会把**原本离屏渲染的操作转嫁到 CPU 上**去。对于只需要圆角的某些场合，也可以**用一张圆角图片 代替 属性设置(可以有效防止图像离屏渲染)**覆盖到视图上面。**最彻底的解决办法，就是把需要显示的图形在后台线程绘制为图片，避免使用圆角、阴影、遮罩等属性**。
+
 - 相关子类
     - **CAGradientLayer 颜色渐变图层**
         - 用来做出多种颜色渐变样式的图层
