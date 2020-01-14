@@ -2188,7 +2188,7 @@ m-n位的数字：^\d{m,n}$
 
         - ****用 异步方式 将文本 绘制到上下文****
             - **Core Text 支持在子线程中 绘制文本**
-            
+
             - 学习博客：https://www.cnblogs.com/yujidewu/p/5741127.html
 
         ```objc
@@ -3122,8 +3122,7 @@ CGImageCreateWithImageInRect(CGImageRef  _Nullable image, CGRect rect)
         CGImageRef cgImage = image.CGImage ;
 
         // 创建位图上下文
-        CGContextRef bitmapContext = CGBitmapContextCreate(malloc(width
-        * height *4), width, height, 8, width * 4, CGImageGetColorSpace(cgImage) , kCGImageAlphaPremultipliedLast) ;
+        CGContextRef bitmapContext = CGBitmapContextCreate(NULL, width, height, 8, width * 4, CGImageGetColorSpace(cgImage) , kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast) ;
         // 把图片渲染到 位图上下文中
         CGContextDrawImage(bitmapContext, CGRectMake(0, 0, width, height), cgImage) ;
 
