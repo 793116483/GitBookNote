@@ -3101,6 +3101,55 @@ CGImageCreateWithImageInRect(CGImageRef  _Nullable image, CGRect rect)
     [[UIImage imageNamed:@""] resizableImageWithCapInsets:UIEdgeInsetsMake(CGFloat top, CGFloat left, CGFloat bottom, CGFloat right) resizingMode:UIImageResizingModeStretch]
 ```
 
+### UIImageView 显示图片性能优化
+
+##### 在子线程 使用 位图上下文(bitmapContext) 进行 图片解码与格式转换
+```objc
+/// UIImageView分类中重写 setImage: 提升界面展示性能 ；
+-(void)setImage:(UIImage *)image {
+
+    // 这里 是为了把 image 渲染到屏幕前，CPU对图片 解码和颜色格式转换 的耗时操作 放入到 子线程中执行任务；
+    // 这样可以避免CPU占用主线程去执行耗时任务
+
+    // 2. 对于这个方法经常用到 需要不断的创建 与 销毁线程， 可以使用 长驻线程 执行这里的任务
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+
+        CGFloat width = image.size.width ;
+        CGFloat height = image.size.height ;
+        CGImageRef cgImage = image.CGImage ;
+
+        // 创建位图上下文
+        CGContextRef bitmapContext = CGBitmapContextCreate(malloc(width
+        * height *4), width, height, 8, width * 4, CGImageGetColorSpace(cgImage) , kCGImageAlphaPremultipliedLast) ;
+        // 把图片渲染到 位图上下文中
+        CGContextDrawImage(bitmapContext, CGRectMake(0, 0, width, height), cgImage) ;
+
+        // 获取上下文中 已经解码 和 格式转换后 的 image
+        cgImage = CGBitmapContextCreateImage(bitmapContext) ;
+
+        // 关闭、释放上下文
+        CFRelease(bitmapContext);
+
+//        // 使用 runtime 获取并执行 系统的 setImage: 方法
+//        int outCount = 0 ;
+//        Method * methodList = class_copyMethodList([UIImageView class], &outCount);
+//        Method setImage_Method = NULL ; // 系统的 setImage:方法
+//        for (int i = outCount - 1 ; i >= 0 ; i--) {
+//            if (@selector(setImage:) == method_getName(methodList[i])) {
+//                setImage_Method = methodList[i] ;
+//                break ;
+//            }
+//        }
+//
+        // 在主线程中 将图片渲染
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.layer.contents = cgImage ;
+        });
+    });
+}
+```
+
+
 ### UITableView 性能优化
 
 ##### UITableViewCell 复用
