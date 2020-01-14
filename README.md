@@ -2444,7 +2444,10 @@ CGContextRef context_cur = UIGraphicsGetCurrentContext();
         ```
 
     - **CAShapeLayer 形状图层**
-        - 设置 CAShapeLayer 图层 path 属性赋值,该图层会**根据设置的填充路径来显示一个该形状的图层**
+        - 设置 CAShapeLayer 图层 path 属性赋值,该图层会**根据设置的填充路径来显示一个该形状的图层** ；
+        
+        - **形状图层是在GPU上进行绘图的，不占用CPU资源**
+
         - 相关属性
         ```objc
         // 填充的路径，决定显示图层样式
