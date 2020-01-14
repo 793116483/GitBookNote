@@ -2186,7 +2186,9 @@ m-n位的数字：^\d{m,n}$
         [@"我直接显示到 view 上，不使用Lable" drawInRect:CGRectMake(0, 0, 100, 100) withAttributes:attributedDic];
         ```
 
-        - ****使用 Core Text 绘制到上下文****
+        - ****用 异步方式 将文本 绘制到上下文****
+            - **Core Text 支持在子线程中 绘制文本**
+            
             - 学习博客：https://www.cnblogs.com/yujidewu/p/5741127.html
 
         ```objc
@@ -2194,6 +2196,7 @@ m-n位的数字：^\d{m,n}$
 
                 [super drawRect:rect];
 
+                // 下面在子线程中 把文本 绘制到 CoreText ，达到优化
                 // 步骤1：得到当前用于绘制画布的上下文，用于后续将内容绘制在画布上
                 // 因为Core Text要配合Core Graphic 配合使用的，如Core Graphic一样，绘图的时候需要获得当前的上下文进行绘制
                 CGContextRef context = UIGraphicsGetCurrentContext();
