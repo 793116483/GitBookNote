@@ -2348,6 +2348,7 @@ CGContextRef context_cur = UIGraphicsGetCurrentContext();
 
     - **opacity 不透明度**
         - float 浮点数，取值范围[0~1]
+        - **用于混合视图 时性能优化，只有在 layer.opaque = NO && alpha < 1.0 时 ， CPU 系统 才会进行 多个重合像素合成 得到一个新的像素所需的值**，其他情况 系统都不会合成新像素
     - **borderWidth 边框宽度**
     - **borderColor 边框颜色**
         - CGColorRef 类型
