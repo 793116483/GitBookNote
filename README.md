@@ -2113,7 +2113,7 @@ m-n位的数字：^\d{m,n}$
 
 - 实现四步,**在 - (void)drawRect 方法 or 开启后的图形上下文 中**：
     - 方式一：
-        - **1. 获取图层上下文都是以 UIGraphics... 开头**
+        - **1. 获取图层 上下文(比较占内存，大小=w*h*4 bit) 都是以 UIGraphics... 开头**
         ``` objc
         // 1. 获取图形上下文，自动与 view 邦定在一起，单独创建是没用的！
         CGContextRef context = UIGraphicsGetCurrentContext();
@@ -2445,7 +2445,7 @@ CGContextRef context_cur = UIGraphicsGetCurrentContext();
 
     - **CAShapeLayer 形状图层**
         - 设置 CAShapeLayer 图层 path 属性赋值,该图层会**根据设置的填充路径来显示一个该形状的图层** ；
-        
+
         - **形状图层是在GPU上进行绘图的，不占用CPU资源**
 
         - 相关属性
