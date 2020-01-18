@@ -2453,6 +2453,10 @@ CGContextRef context_cur = UIGraphicsGetCurrentContext();
         @property float instanceAlphaOffset;
         ```
 
+    - **CATextLayer 显示文本或副文本图层**
+
+    - **CAEAGLLayer 用于penGL 绘图展示**
+
     - **CAShapeLayer 形状图层**
         - 设置 CAShapeLayer 图层 path 属性赋值,该图层会**根据设置的填充路径来显示一个该形状的图层** ；
 
@@ -2752,6 +2756,7 @@ CGContextRef context_cur = UIGraphicsGetCurrentContext();
 
 #### 动画
 - **核心动画(CAAnimation)**
+    - 核心动画 **基于 OpenGL 3D绘图 + 定时器 实现的**
     - 核心动画 **只作用在CALayer 以及子类上**
     - 核心动画 **不改变 UIView 的真实位置，是假像**
         - **注意**：有些要到达的**临界值不起效果**时，就要用误差代替
