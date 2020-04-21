@@ -13,6 +13,29 @@
 
     > 把本地项目与github上的代码仓库关联，然后正常使用git来管理项目开发
 
+    - **解决SourceTree不断提示输入密码问题**
+        - 第一个方法：在.git目录中有个config目录，在路径前配置下用户名和密码即可，如下所示：
+        ```
+        [core]
+        repositoryformatversion = 0
+        filemode = false
+        bare = false
+        logallrefupdates = true
+        symlinks = false
+        ignorecase = true
+    [remote "origin"]
+        url = http://账号:'密码'@192.168.10.7:8090/test/Django.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+    [branch "master"]
+        remote = origin
+        merge = refs/heads/master
+        ```
+
+        - 第二种方法：终端输入一下命令：
+        ```
+        git config --global credential.helper osxkeychain
+        ```
+
     - **本地项目 推送且同步到 github ，使用SSH**
         - 先在 github 上创建一个项目代码仓库(取名：QJxxxDome)
         - 接下来执行下面的 命令
