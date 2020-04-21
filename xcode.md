@@ -25,6 +25,9 @@
 ---
 
 # xcode 配制
+#### 配制选择调试的证书路径
+项目TARGETS -> Build Settings -> Signing -> Development Team
+
 #### 某个类文件需要使用非ACR环境 配制
 ![](./images/某一个类文件使用非ARC配制.png)
 
