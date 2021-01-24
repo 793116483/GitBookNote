@@ -47,57 +47,56 @@ struct NSObject_IMPL {
   * ###### 类方法存放在 元类对象中；
   * ###### 成员变量的具体值，存放在 实例对象。
 
-* #### 6.KVO 实现原理？
+#### 6.KVO 实现原理？
 
-  1. **使用runtime 动态创建一个子类 NSKVONotifying\_QJStudent；**
+1. **使用runtime 动态创建一个子类 NSKVONotifying\_QJStudent；**
 
-  2. **重新绑定替换 setAge: 方法的IMP实现** **\_NSSet**LongLong**ValueAndNotify **
+2. **重新绑定替换 setAge: 方法的IMP实现** **\_NSSet**LongLong**ValueAndNotify **
 
-     1. \_NSSetLongLongValueAndNotify **函数内部实现方式大致如下**
+   1. \_NSSetLongLongValueAndNotify **函数内部实现方式大致如下**
 
-     2. ```
-        // NSKVONotifying_QJStudent 内部大致实现
+   2. ```
+      // NSKVONotifying_QJStudent 内部大致实现
 
-        -(void)setAge:(NSInteger)age {
-            _NSSetLongLongValueAndNotify(...);
-        }
+      -(void)setAge:(NSInteger)age {
+          _NSSetLongLongValueAndNotify(...);
+      }
 
-        // _NSSet类型ValueAndNotify : _NSSetObjectValueAndNotify 等
-        void _NSSetLongLongValueAndNotify(id self , SEL _cmd , ...){
-            [self willChangeValueForKey:@"age"];
-            [super setAge:age];
-            // 内部通知了观察者改变了 age 值
-            [self didChangeValueForKey:@"age"];
-        }
-        -(void)didChangeValueForKey:(NSString *)key{
-            NSLog(@"didChangeValueForKey 前");
-    
-            // 通知观察者当前对象的key值改变了
-            // [self observeValueForKeyPath:key ofObject:observe change:@{..} context:nil];
-            [super didChangeValueForKey:key];
-    
-            NSLog(@"didChangeValueForKey 后");
-        }
+      // _NSSet类型ValueAndNotify : _NSSetObjectValueAndNotify 等
+      void _NSSetLongLongValueAndNotify(id self , SEL _cmd , ...){
+          [self willChangeValueForKey:@"age"];
+          [super setAge:age];
+          // 内部通知了观察者改变了 age 值
+          [self didChangeValueForKey:@"age"];
+      }
+      -(void)didChangeValueForKey:(NSString *)key{
+          NSLog(@"didChangeValueForKey 前");
 
-        -(Class)class{
-            return class_getSuperclass(object_getClass(self));
-        }
+          // 通知观察者当前对象的key值改变了
+          // [self observeValueForKeyPath:key ofObject:observe change:@{..} context:nil];
+          [super didChangeValueForKey:key];
 
-        ```
-* *             QJStudent * objc = [QJStudent new];
-                QJStudent * objc2 = [QJStudent new];
-        //        objc_getClass(<#const char * _Nonnull name#>)
-        //        object_getClass(<#id  _Nullable obj#>)
+          NSLog(@"didChangeValueForKey 后");
+      }
 
-                NSLog(@"添加观察之前：%p , %p" ,
-                      [objc methodForSelector:@selector(setAge:)],
-                      [objc2 methodForSelector:@selector(setAge:)]);
+      -(Class)class{
+          return class_getSuperclass(object_getClass(self));
+      }
+      ```
 
-                [objc addObserver:objc2 forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
 
-                NSLog(@"添加观察之后：%p , %p" ,
-                      [objc methodForSelector:@selector(setAge:)],
-                      [objc2 methodForSelector:@selector(setAge:)]);
+
+          QJStudent  objc = [QJStudent new];
+          QJStudent  objc2 = [QJStudent new];
+          //        objc_getClass(<#const char * _Nonnull name#>)
+          //        object_getClass(<#id  _Nullable obj#>)
+          NSLog(@"添加观察之前：%p , %p" ,
+                [objc methodForSelector:@selector(setAge:)],
+                [objc2 methodForSelector:@selector(setAge:)]);
+          [objc addObserver:objc2 forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
+          NSLog(@"添加观察之后：%p , %p" ,
+                [objc methodForSelector:@selector(setAge:)],
+                [objc2 methodForSelector:@selector(setAge:)]);
 
 
         // 打印信息 
