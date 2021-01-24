@@ -62,6 +62,7 @@ struct NSObject_IMPL {
           _NSSetLongLongValueAndNotify(...);
       }
 
+      // 伪代码
       // _NSSet类型ValueAndNotify : _NSSetObjectValueAndNotify 等
       void _NSSetLongLongValueAndNotify(id self , SEL _cmd , ...){
           [self willChangeValueForKey:@"age"];
@@ -84,18 +85,19 @@ struct NSObject_IMPL {
       }
       ```
 
-          QJStudent  objc = [QJStudent new];
-          QJStudent  objc2 = [QJStudent new];
-          //        objc_getClass(<#const char * _Nonnull name#>)
-          //        object_getClass(<#id  _Nullable obj#>)
-          NSLog(@"添加观察之前：%p , %p" ,
-                [objc methodForSelector:@selector(setAge:)],
-                [objc2 methodForSelector:@selector(setAge:)]);
-          [objc addObserver:objc2 forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
-          NSLog(@"添加观察之后：%p , %p" ,
-                [objc methodForSelector:@selector(setAge:)],
-                [objc2 methodForSelector:@selector(setAge:)]);
-
+      ```
+      QJStudent  objc = [QJStudent new];
+      QJStudent  objc2 = [QJStudent new];
+      //        objc_getClass(<#const char * _Nonnull name#>)
+      //        object_getClass(<#id  _Nullable obj#>)
+      NSLog(@"添加观察之前：%p , %p" ,
+            [objc methodForSelector:@selector(setAge:)],
+            [objc2 methodForSelector:@selector(setAge:)]);
+      [objc addObserver:objc2 forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
+      NSLog(@"添加观察之后：%p , %p" ,
+            [objc methodForSelector:@selector(setAge:)],
+            [objc2 methodForSelector:@selector(setAge:)]);
+      ```
 
         // 打印信息 
         2021-01-24 21:30:48.599451+0800 domeText[5854:532542] 添加观察之前：0x100003bc0 , 0x100003bc0
