@@ -73,7 +73,7 @@ struct NSObject_IMPL {
           NSLog(@"didChangeValueForKey 前");
 
           // 通知观察者当前对象的key值改变了
-          // [self observeValueForKeyPath:key ofObject:observe change:@{..} context:nil];
+          // [observe observeValueForKeyPath:key ofObject:self change:@{..} context:nil];
           [super didChangeValueForKey:key];
 
           NSLog(@"didChangeValueForKey 后");
@@ -83,8 +83,6 @@ struct NSObject_IMPL {
           return class_getSuperclass(object_getClass(self));
       }
       ```
-
-
 
           QJStudent  objc = [QJStudent new];
           QJStudent  objc2 = [QJStudent new];
