@@ -46,82 +46,80 @@ struct NSObject_IMPL {
   * ###### 对象方法列表、成员变量列表、协议信息列表，存放在class对象中；
   * ###### 类方法存放在 元类对象中；
   * ###### 成员变量的具体值，存放在 实例对象。
-
 * #### 6.KVO 实现原理？
 
-1. **使用runtime 动态创建一个子类 NSKVONotifying\_QJStudent；**
+  1. **使用runtime 动态创建一个子类 NSKVONotifying\_QJStudent；**
 
-2. **重写 -setAge: 、 -class 、-dealloc 和 -\_isKVOA 实例对象方法。**
+  2. **重写 -setAge: 、 -class 、-dealloc 和 -\_isKVOA 实例对象方法。**
 
-   1. NSKVONotifying\_QJStudent 内部大致实现，重写了几个方法: -setAge: 、 -class 、-dealloc 和 -\_isKVOA
+     1. NSKVONotifying\_QJStudent 内部大致实现，重写了几个方法: -setAge: 、 -class 、-dealloc 和 -\_isKVOA
 
-   2. ```
-      -(Class)class{
-          return class_getSuperclass(object_getClass(self));
-      }
+     2. ```
+        -(Class)class{
+            return class_getSuperclass(object_getClass(self));
+        }
 
-      -(void)setAge:(NSInteger)age {
+        -(void)setAge:(NSInteger)age {
 
-         // _NSSet类型ValueAndNotify : _NSSetObjectValueAndNotify 等
-          _NSSetLongLongValueAndNotify(...);
+           // _NSSet类型ValueAndNotify : _NSSetObjectValueAndNotify 等
+            _NSSetLongLongValueAndNotify(...);
 
-          [self willChangeValueForKey:@"age"];
-          [super setAge:age];
-          // 内部通知了观察者改变了 age 值
-          [self didChangeValueForKey:@"age"];
+            [self willChangeValueForKey:@"age"];
+            [super setAge:age];
+            // 内部通知了观察者改变了 age 值
+            [self didChangeValueForKey:@"age"];
 
-      }
+        }
 
-      // NSObject 实例对象方法 didChangeValueForKey 的伪代码
-      -(void)didChangeValueForKey:(NSString *)key{
-          // NSLog(@"didChangeValueForKey 前");
+        // NSObject 实例对象方法 didChangeValueForKey 的伪代码
+        -(void)didChangeValueForKey:(NSString *)key{
+            // NSLog(@"didChangeValueForKey 前");
 
-          // 通知观察者当前对象的key值改变了
-          // [observe observeValueForKeyPath:key ofObject:self change:@{..} context:nil];
-          // [super didChangeValueForKey:key];
+            // 通知观察者当前对象的key值改变了
+            // [observe observeValueForKeyPath:key ofObject:self change:@{..} context:nil];
+            // [super didChangeValueForKey:key];
 
-          // NSLog(@"didChangeValueForKey 后");
-      }
-      ```
+            // NSLog(@"didChangeValueForKey 后");
+        }
+        ```
 
-      ```
-      QJStudent  objc = [QJStudent new];
-      QJStudent  objc2 = [QJStudent new];
-      //        objc_getClass(<#const char * _Nonnull name#>)
-      //        object_getClass(<#id  _Nullable obj#>)
-      NSLog(@"添加观察之前：%p , %p" ,
-            [objc methodForSelector:@selector(setAge:)],
-            [objc2 methodForSelector:@selector(setAge:)]);
-      [objc addObserver:objc2 forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
-      NSLog(@"添加观察之后：%p , %p" ,
-            [objc methodForSelector:@selector(setAge:)],
-            [objc2 methodForSelector:@selector(setAge:)]);
-      ```
+        ```
+        QJStudent  objc = [QJStudent new];
+        QJStudent  objc2 = [QJStudent new];
+        //        objc_getClass(<#const char * _Nonnull name#>)
+        //        object_getClass(<#id  _Nullable obj#>)
+        NSLog(@"添加观察之前：%p , %p" ,
+              [objc methodForSelector:@selector(setAge:)],
+              [objc2 methodForSelector:@selector(setAge:)]);
+        [objc addObserver:objc2 forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
+        NSLog(@"添加观察之后：%p , %p" ,
+              [objc methodForSelector:@selector(setAge:)],
+              [objc2 methodForSelector:@selector(setAge:)]);
+        ```
 
-          // 打印信息
-          2021-01-24 21:30:48.599451+0800 domeText[5854:532542] 添加观察之前：0x100003bc0 , 0x100003bc0
-          2021-01-24 21:30:48.600453+0800 domeText[5854:532542] 添加观察之后：0x7fff211a2368 , 0x100003bc0
-          (lldb) p (IMP)0x100003bc0   // 查看方法的实现
-            (IMP) $0 = 0x0000000100003bc0 (domeText`-[QJStudent setAge:] at main.m:21)
-          (lldb) p (IMP)0x7fff211a2368  // objc 对象添加观察之后的 -setAge: 方法实现
-            (IMP) $1 = 0x00007fff211a2368 (Foundation`_NSSetLongLongValueAndNotify)
-          (lldb) p objc->isa            // objc 对象添加观察之后的 -setAge: 方法实现
-            (Class) $2 = NSKVONotifying_QJStudent
-
+            // 打印信息
+            2021-01-24 21:30:48.599451+0800 domeText[5854:532542] 添加观察之前：0x100003bc0 , 0x100003bc0
+            2021-01-24 21:30:48.600453+0800 domeText[5854:532542] 添加观察之后：0x7fff211a2368 , 0x100003bc0
+            (lldb) p (IMP)0x100003bc0   // 查看方法的实现
+              (IMP) $0 = 0x0000000100003bc0 (domeText`-[QJStudent setAge:] at main.m:21)
+            (lldb) p (IMP)0x7fff211a2368  // objc 对象添加观察之后的 -setAge: 方法实现
+              (IMP) $1 = 0x00007fff211a2368 (Foundation`_NSSetLongLongValueAndNotify)
+            (lldb) p objc->isa            // objc 对象添加观察之后的 -setAge: 方法实现
+              (Class) $2 = NSKVONotifying_QJStudent
 * #### 7. 如何手动触发 KVO ？
 
-1. ##### object1 先对 age属性 添加观察者 observer
+  1. ##### object1 先对 age属性 添加观察者 observer
 
-   ```
-   [object1 addObserver:observer forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
-   ```
-2. ##### 手动设用如下两个方法，触发 KVO
+     ```
+     [object1 addObserver:observer forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
+     ```
+  2. ##### 手动设用如下两个方法，触发 KVO
 
-   ```
-   [object1 willChangeValueForKey:@"age"];
-   // 中间可以添加 object1->_age = 10 ;
-   [object1 didChangeValueForKey:@"age"];
-   ```
+     ```
+     [object1 willChangeValueForKey:@"age"];
+     // 中间可以添加 object1->_age = 10 ;
+     [object1 didChangeValueForKey:@"age"];
+     ```
 
 
 
