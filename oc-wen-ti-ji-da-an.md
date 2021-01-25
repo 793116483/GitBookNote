@@ -47,7 +47,7 @@ struct NSObject_IMPL {
   * ###### 类方法存放在 元类对象中；
   * ###### 成员变量的具体值，存放在 实例对象。
 
-#### 6.KVO 实现原理？
+* #### 6.KVO 实现原理？
 
 1. **使用runtime 动态创建一个子类 NSKVONotifying\_QJStudent；**
 
@@ -108,7 +108,7 @@ struct NSObject_IMPL {
           (lldb) p objc->isa            // objc 对象添加观察之后的 -setAge: 方法实现
             (Class) $2 = NSKVONotifying_QJStudent
 
-##### 7. 如何手动触发 KVO ？
+* #### 7. 如何手动触发 KVO ？
 
 1. ##### object1 先对 age属性 添加观察者 observer
 
