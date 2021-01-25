@@ -50,7 +50,9 @@ struct NSObject_IMPL {
 
   1. **使用runtime 动态创建一个子类 NSKVONotifying\_QJStudent；**
 
-  2. **重写 -setAge: 、 -class 、-dealloc 和 -\_isKVOA 实例对象方法。**
+         ![](/assets/runtime 创建KVO类并重写四个方法.png)
+
+  1. **重写 -setAge: 、 -class 、-dealloc 和 -\_isKVOA 实例对象方法。**
 
      1. NSKVONotifying\_QJStudent 内部大致实现，重写了几个方法: -setAge: 、 -class 、-dealloc 和 -\_isKVOA
 
@@ -106,6 +108,7 @@ struct NSObject_IMPL {
               (IMP) $1 = 0x00007fff211a2368 (Foundation`_NSSetLongLongValueAndNotify)
             (lldb) p objc->isa            // objc 对象添加观察之后的 -setAge: 方法实现
               (Class) $2 = NSKVONotifying_QJStudent
+
 * #### 7. 如何手动触发 KVO ？
 
   1. ##### object1 先实现对 age属性 KVO 的监听
@@ -123,7 +126,9 @@ struct NSObject_IMPL {
 * #### 8. 直接修改成员变量会不会触发 KVO 监听？
 
   * ##### 不会触发，因为必须通过 set方法 才能触发。
-* #### 
+* #### 9. KVC实现原理？
+
+  ![](/assets/KVC实现原理.png)
 
 
 
