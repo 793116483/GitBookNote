@@ -75,7 +75,7 @@ struct NSObject_IMPL {
         -(void)didChangeValueForKey:(NSString *)key{
             // NSLog(@"didChangeValueForKey 前");
 
-            // 通知观察者当前对象的key值改变了
+            // 判断如果是KVO对象，则通知观察者当前对象的key值改变了
             // [observe observeValueForKeyPath:key ofObject:self change:@{..} context:nil];
             // [super didChangeValueForKey:key];
 
@@ -120,6 +120,11 @@ struct NSObject_IMPL {
      // 中间可以添加 object1->_age = 10 ;
      [object1 didChangeValueForKey:@"age"];
      ```
+
+* #### 8. 直接修改成员变量会不会触发 KVO 监听？
+
+  * ##### 不会触发，因为必须通过 set方法 才能触发。
+* #### 
 
 
 
