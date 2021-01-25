@@ -135,10 +135,9 @@ struct NSObject_IMPL {
       [objc setValue:@10 forKey:@"age"];
       ```
     * +\(BOOL\)accessInstanceVariablesDirectly 表示 是否允许直接访问实例的成员变量![](/assets/KVC实现原理.png)
+  * ##### KVC 取值的过程原理：
 
-* ##### KVC 取值的过程原理：
-
-  * ##### \[objc valueForKey:@"age"\];![](/assets/KVC获取值的过程.png)
+    * ##### \[objc valueForKey:@"age"\];![](/assets/KVC获取值的过程.png)
 
 
 
