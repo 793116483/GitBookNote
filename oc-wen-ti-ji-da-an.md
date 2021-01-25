@@ -80,7 +80,7 @@ struct NSObject_IMPL {
             // NSLog(@"didChangeValueForKey 前");
 
             // 判断如果是KVO对象，则通知观察者当前对象的key值改变了
-            // [observe observeValueForKeyPath:key ofObject:self change:@{..} context:nil];
+            // [observer observeValueForKeyPath:key ofObject:self change:@{..} context:nil];
             // [super didChangeValueForKey:key];
 
             // NSLog(@"didChangeValueForKey 后");
@@ -129,9 +129,16 @@ struct NSObject_IMPL {
   * ##### 不会触发，因为必须通过 set方法 才能触发。
 * #### 9. KVC实现原理？
 
-  +\(BOOL\)accessInstanceVariablesDirectly 表示 是否允许直接访问实例的成员变量![](/assets/KVC实现原理.png)
+  * ##### KVC赋值的过程原理：
 
+    * ```
+      [objc setValue:@10 forKey:@"age"];
+      ```
+    * +\(BOOL\)accessInstanceVariablesDirectly 表示 是否允许直接访问实例的成员变量![](/assets/KVC实现原理.png)
 
+* ##### KVC 取值的过程原理：
+
+  * ##### \[objc valueForKey:@"age"\];![](/assets/KVC获取值的过程.png)
 
 
 
