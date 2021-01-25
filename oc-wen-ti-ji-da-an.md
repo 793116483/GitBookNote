@@ -133,6 +133,19 @@ struct NSObject_IMPL {
 
     * ```
       [objc setValue:@10 forKey:@"age"];
+
+      //        if (isKVO类实例 && [objc respondsToSelector:NSSelectorFromString(@"setAge:")]) {
+      //            [objc willChangeValueForKey:@"age"];
+      //        }
+        
+      //        // 1.按顺序查找 setAge: 、_setAge: 方法，找到则执行该方法
+      //        // 2.如果没有找到，判断是否可以直接访问成员变量，如果不可以则调用 -setValue:forUndefinedKey:报错
+      //        // 3.如果允许访问，则按顺序查找 _age、_isAge、age、isAge
+      //        // 4.如果还没找到则调用 -setValue:forUndefinedKey:报错
+        
+      //        if (isKVO类实例 && [objc respondsToSelector:NSSelectorFromString(@"setAge:")]) {
+      //            [objc didChangeValueForKey:@"age"]; // 可以触发 observer 对 objc 对象的 age key名 监听
+      //        }
       ```
     * +\(BOOL\)accessInstanceVariablesDirectly 表示 是否允许直接访问实例的成员变量![](/assets/KVC实现原理.png)
   * ##### KVC 取值的过程原理：
