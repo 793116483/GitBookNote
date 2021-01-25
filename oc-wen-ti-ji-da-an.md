@@ -108,22 +108,20 @@ struct NSObject_IMPL {
           (lldb) p objc->isa            // objc 对象添加观察之后的 -setAge: 方法实现
             (Class) $2 = NSKVONotifying_QJStudent
 
-* ##### 7. 如何手动触发 KVO ？
+##### 7. 如何手动触发 KVO ？
 
-  1. ##### object1 先对 age属性 添加观察者 observer
+1. ##### object1 先对 age属性 添加观察者 observer
 
-     ```
-     [object1 addObserver:observer forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
-     ```
-  2. ##### 手动设用如下两个方法，触发 KVO
+   ```
+   [object1 addObserver:observer forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
+   ```
+2. ##### 手动设用如下两个方法，触发 KVO
 
-     ```
-     [object1 willChangeValueForKey:@"age"];
-     // 中间可以添加 object1->_age = 10 ;
-     [object1 didChangeValueForKey:@"age"];
-     ```
-
-
+   ```
+   [object1 willChangeValueForKey:@"age"];
+   // 中间可以添加 object1->_age = 10 ;
+   [object1 didChangeValueForKey:@"age"];
+   ```
 
 
 
