@@ -53,9 +53,9 @@ struct NSObject_IMPL {
 
 2. **重写 -setAge: 、 -class 、-dealloc 和 -\_isKVOA 实例对象方法。**
 
-   1.  NSKVONotifying\_QJStudent 内部大致实现，重写了几个方法: -setAge: 、 -class 、-dealloc 和 -\_isKVOA
+   1. NSKVONotifying\_QJStudent 内部大致实现，重写了几个方法: -setAge: 、 -class 、-dealloc 和 -\_isKVOA
 
-   1. ```
+   2. ```
       -(Class)class{
           return class_getSuperclass(object_getClass(self));
       }
@@ -64,7 +64,7 @@ struct NSObject_IMPL {
 
          // _NSSet类型ValueAndNotify : _NSSetObjectValueAndNotify 等
           _NSSetLongLongValueAndNotify(...);
-    
+
           [self willChangeValueForKey:@"age"];
           [super setAge:age];
           // 内部通知了观察者改变了 age 值
@@ -82,7 +82,6 @@ struct NSObject_IMPL {
 
           // NSLog(@"didChangeValueForKey 后");
       }
-
       ```
 
       ```
@@ -108,6 +107,21 @@ struct NSObject_IMPL {
             (IMP) $1 = 0x00007fff211a2368 (Foundation`_NSSetLongLongValueAndNotify)
           (lldb) p objc->isa            // objc 对象添加观察之后的 -setAge: 方法实现
             (Class) $2 = NSKVONotifying_QJStudent
+
+* ##### 7. 如何手动触发 KVO ？
+
+  1. ##### object1 先对 age属性 添加观察者 observer
+
+     ```
+     [object1 addObserver:observer forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
+     ```
+  2. ##### 手动设用如下两个方法，触发 KVO
+
+     ```
+     [object1 willChangeValueForKey:@"age"];
+     // 中间可以添加 object1->_age = 10 ;
+     [object1 didChangeValueForKey:@"age"];
+     ```
 
 
 
