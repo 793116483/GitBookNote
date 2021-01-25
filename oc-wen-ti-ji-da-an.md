@@ -85,34 +85,28 @@ struct NSObject_IMPL {
       }
       ```
 
-      ```
-      QJStudent  objc = [QJStudent new];
-      QJStudent  objc2 = [QJStudent new];
-      //        objc_getClass(<#const char * _Nonnull name#>)
-      //        object_getClass(<#id  _Nullable obj#>)
-      NSLog(@"添加观察之前：%p , %p" ,
-            [objc methodForSelector:@selector(setAge:)],
-            [objc2 methodForSelector:@selector(setAge:)]);
-      [objc addObserver:objc2 forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
-      NSLog(@"添加观察之后：%p , %p" ,
-            [objc methodForSelector:@selector(setAge:)],
-            [objc2 methodForSelector:@selector(setAge:)]);
-      ```
+          QJStudent  objc = [QJStudent new];
+          QJStudent  objc2 = [QJStudent new];
+          //        objc_getClass(<#const char * _Nonnull name#>)
+          //        object_getClass(<#id  _Nullable obj#>)
+          NSLog(@"添加观察之前：%p , %p" ,
+                [objc methodForSelector:@selector(setAge:)],
+                [objc2 methodForSelector:@selector(setAge:)]);
+          [objc addObserver:objc2 forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
+          NSLog(@"添加观察之后：%p , %p" ,
+                [objc methodForSelector:@selector(setAge:)],
+                [objc2 methodForSelector:@selector(setAge:)]);
 
-      // 打印信息   
-        2021-01-24 21:30:48.599451+0800 domeText\[5854:532542\] 添加观察之前：0x100003bc0 , 0x100003bc0  
-        2021-01-24 21:30:48.600453+0800 domeText\[5854:532542\] 添加观察之后：0x7fff211a2368 , 0x100003bc0
 
-      \(lldb\) p \(IMP\)0x100003bc0   // 查看方法的实现  
-        \(IMP\) $0 = 0x0000000100003bc0 \(domeText\`-\[QJStudent setAge:\] at main.m:21\)
-
-      \(lldb\) p \(IMP\)0x7fff211a2368  // objc 对象添加观察之后的 -setAge: 方法实现  
-        \(IMP\) $1 = 0x00007fff211a2368 \(Foundation\`\_NSSetLongLongValueAndNotify\)
-
-      \(lldb\) p objc-&gt;isa            // objc 对象添加观察之后的 -setAge: 方法实现  
-        \(Class\) $2 = NSKVONotifying\_QJStudent
-
-3. ##### 
+          // 打印信息
+          2021-01-24 21:30:48.599451+0800 domeText[5854:532542] 添加观察之前：0x100003bc0 , 0x100003bc0
+          2021-01-24 21:30:48.600453+0800 domeText[5854:532542] 添加观察之后：0x7fff211a2368 , 0x100003bc0
+          (lldb) p (IMP)0x100003bc0   // 查看方法的实现
+            (IMP) $0 = 0x0000000100003bc0 (domeText`-[QJStudent setAge:] at main.m:21)
+          (lldb) p (IMP)0x7fff211a2368  // objc 对象添加观察之后的 -setAge: 方法实现
+            (IMP) $1 = 0x00007fff211a2368 (Foundation`_NSSetLongLongValueAndNotify)
+          (lldb) p objc->isa            // objc 对象添加观察之后的 -setAge: 方法实现
+            (Class) $2 = NSKVONotifying_QJStudent
 
 
 
