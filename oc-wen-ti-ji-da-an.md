@@ -108,19 +108,18 @@ struct NSObject_IMPL {
               (Class) $2 = NSKVONotifying_QJStudent
 * #### 7. 如何手动触发 KVO ？
 
-  1. ##### object1 先对 age属性 添加观察者 observer
+  1. ##### object1 先实现对 age属性 KVO 的监听
 
      ```
      [object1 addObserver:observer forKeyPath:@"age" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
      ```
-  2. ##### 手动设用如下两个方法，触发 KVO
+  2. ##### 手动调用如下两个方法，触发 KVO
 
      ```
      [object1 willChangeValueForKey:@"age"];
      // 中间可以添加 object1->_age = 10 ;
      [object1 didChangeValueForKey:@"age"];
      ```
-
 * #### 8. 直接修改成员变量会不会触发 KVO 监听？
 
   * ##### 不会触发，因为必须通过 set方法 才能触发。
