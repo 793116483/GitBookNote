@@ -28,6 +28,8 @@ struct NSObject_IMPL {
 }
 ```
 
+#### ![](/images/objc_class结构体.png)
+
 * #### 2.一个 NSObject 对像点用多少内存？
 
   * **系统分配了16个字节内存给 NSOjbect 实例对像**\(内部规定最少16个字节，子类对像 超过16个字节的以**16个字节对齐**，即16的整倍数\)，可以通过 **malloc\_size** 函数获得；
@@ -137,12 +139,12 @@ struct NSObject_IMPL {
       //        if (isKVO类实例 && [objc respondsToSelector:NSSelectorFromString(@"setAge:")]) {
       //            [objc willChangeValueForKey:@"age"];
       //        }
-        
+
       //        // 1.按顺序查找 setAge: 、_setAge: 方法，找到则执行该方法
       //        // 2.如果没有找到，判断是否可以直接访问成员变量，如果不可以则调用 -setValue:forUndefinedKey:报错
       //        // 3.如果允许访问，则按顺序查找 _age、_isAge、age、isAge
       //        // 4.如果还没找到则调用 -setValue:forUndefinedKey:报错
-        
+
       //        if (isKVO类实例 && [objc respondsToSelector:NSSelectorFromString(@"setAge:")]) {
       //            [objc didChangeValueForKey:@"age"]; // 可以触发 observer 对 objc 对象的 age key名 监听
       //        }
@@ -151,6 +153,25 @@ struct NSObject_IMPL {
   * ##### KVC 取值的过程原理：
 
     * ##### \[objc valueForKey:@"age"\];![](/assets/KVC获取值的过程.png)
+
+### 分类
+
+* ##### 10. 分类中存放哪些内容？
+
+  * ```
+    struct objc_category {
+        char * _Nonnull category_name                            OBJC2_UNAVAILABLE;    // 分类名
+        char * _Nonnull class_name                               OBJC2_UNAVAILABLE;    // 类名
+        struct objc_method_list * _Nullable instance_methods     OBJC2_UNAVAILABLE;    // 对象方法列表
+        struct objc_method_list * _Nullable class_methods        OBJC2_UNAVAILABLE;    // 类方法列表
+        struct objc_protocol_list * _Nullable protocols          OBJC2_UNAVAILABLE;    // 协议列表
+        struct objc_property_list * _Nullable propertys          OBJC2_UNAVAILABLE;    // 属性列表
+    }
+    ```
+
+##### 
+
+* ##### 
 
 
 
