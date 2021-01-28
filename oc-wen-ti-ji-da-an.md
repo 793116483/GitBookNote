@@ -242,7 +242,9 @@ struct NSObject_IMPL {
     3. ##### hashMap\[object经过位运算处理\] 拿到对应的 ObjectAssociationMap类型的 对象 objectMap，如果不存在时创建这个Map对象 并且 修改object 的 has\_asso = YES ;
 
        1. ##### object 的 has\_asso 用于标记该对象存在关联对象，当object对象释放时把object关联的所有关联对象从hashMap中移除掉；
-    4. #####  将 value 和 内存策略 包装成 ObjectAssociation 类型的 变量 赋值给 objectMap\[key\] ；
+    4. ##### 将 value 和 内存策略 包装成 ObjectAssociation 类型的 变量 赋值给 objectMap\[key\] ；
+
+       1. ##### value == nil 时会将 objectMap\[key\] 的旧记录擦除掉；
 
 
 
