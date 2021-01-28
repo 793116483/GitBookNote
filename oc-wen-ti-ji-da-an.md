@@ -234,5 +234,15 @@ struct NSObject_IMPL {
         1. ##### 先父类初始化，再子类初始化\(可能最终调用父类的方法，因为调用消息传递机制\)。
 * #### 14. Categroy 能否添加成员变量？如果可以，如何给 Categroy添加成员变量？
 
+  * ##### 不可以，但可以使用runtime给对象添加关联属性值实现属性功能；
+  * #### 给object关联key属性的value值的底层实现原理：
+
+    1. ##### 从全局拿到一个 AssociationManager类型的 manager 变量；
+    2. ##### manager 内部拿到 AssociationHashMap类型的 对象 hashMap；
+    3. ##### hashMap\[object经过位运算处理\] 拿到对应的 ObjectAssociationMap类型的 对象 objectMap，如果不存在时创建这个Map对象 并且 修改object 的 has\_asso = YES ;
+
+       1. ##### object 的 has\_asso 用于标记该对象存在关联对象，当object对象释放时把object关联的所有关联对象从hashMap中移除掉；
+    4. #####  将 value 和 内存策略 包装成 ObjectAssociation 类型的 变量 赋值给 objectMap\[key\] ；
+
 
 
