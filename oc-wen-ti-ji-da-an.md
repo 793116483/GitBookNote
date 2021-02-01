@@ -246,7 +246,7 @@ struct NSObject_IMPL {
 
        1. ##### value == nil 时会将 objectMap\[key\] 的旧记录擦除掉；
 
-## Block
+###### Block
 
 * #### 15. block 本质是什么？
 
@@ -262,9 +262,11 @@ struct NSObject_IMPL {
   2. ##### \_\_NSStackBlock : 只存在MRC环境下，block内部引用了外部的 auto局部变量\(即非static静态的局部变量\)，存放在栈区；
 
      1. ###### 该类型的对象 调用 copy 会将\_\_NSStackBlock 存入到 堆区；变成 \_\_NSMallockBlock 类型；
+     2. ###### 如果block是放在栈区，对引用外部的局部 auto OC对象不会强引用；属性于assige赋值。
   3. ##### \_\_NSMallockBlock : 在MRC环境下， \_\_NSStackBlock 这种类型对象使用 copy 时，存放在堆区；在ARC环境下，block 内部引用了外部的 非static静态局部变量，会自动实现了 copy 操作，存放在堆区；
 
-     1. 该类型的对象 调用 copy ，引用计数器+1；
+     1. ###### 该类型的对象 调用 copy ，引用计数器+1；
+     2. ###### 放在堆区的block，如果外部的局部auto OC对象是强引用那么block就是对该OC对象强引用，如果外部的是弱引用变量那么block就是对该OC对象弱用；\(即外部是什么类型的内部就是什么类型\)。
 
 
 
