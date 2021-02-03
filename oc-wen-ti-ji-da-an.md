@@ -276,7 +276,7 @@ struct NSObject_IMPL {
   ##### 
 * #### 18. block 解决循环引用？
 
-  * ##### ARC环境下：使用 weak 和 \_\_unsafe\_unretained （使用时注意不会自动置nil，可能会引起坏内存访问）
+  * ##### ARC环境下：使用 \_\_weak 和 \_\_unsafe\_unretained （使用时注意不会自动置nil，可能会引起坏内存访问）
   * ##### MRC环境下：使用 \_\_safe\_unretained 和 \_\_block 修饰变量
 
 
