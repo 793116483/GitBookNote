@@ -40,7 +40,7 @@ struct objc_class {
     long instance_size                                       OBJC2_UNAVAILABLE;
     struct objc_ivar_list * _Nullable ivars                  OBJC2_UNAVAILABLE;
     struct objc_method_list * _Nullable * _Nullable methodLists                    OBJC2_UNAVAILABLE;
-    struct objc_cache * _Nonnull cache                       OBJC2_UNAVAILABLE;
+    struct objc_cache * _Nonnull cache                       OBJC2_UNAVAILABLE;   哈希表查找和缓存
     struct objc_protocol_list * _Nullable protocols          OBJC2_UNAVAILABLE;
 #endif
 
@@ -54,6 +54,16 @@ struct NSObject_IMPL {
 
 #### ![](/images/objc_class结构体.png)
 
+* #### 1.1 哈希表的实现原理？OC中哪些用到哈希表？
+
+  * ##### 哈希表：利用空间换时间（以插入 key 、value 为例）
+
+    * ###### 首先开辟一个内存地址的数组且置NSULL，数组的长度为 len ;
+    * ###### 利用 key & \(len-1\) 得到哈希值 i \(&lt;len\) 作为数组下标；取出对应位置的 &lt;\_key,\_value&gt;；
+    * ###### 对比 key 与 \_key ：
+
+      * ###### 如果相等：
+  * ##### 在
 * #### 2.一个 NSObject 对像点用多少内存？
 
   * **系统分配了16个字节内存给 NSOjbect 实例对像**\(内部规定最少16个字节，子类对像 超过16个字节的以**16个字节对齐**，即16的整倍数\)，可以通过 **malloc\_size** 函数获得；
