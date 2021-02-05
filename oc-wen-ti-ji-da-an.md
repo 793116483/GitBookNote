@@ -297,9 +297,13 @@ struct NSObject_IMPL {
   * #### 消息发送：
 
     * ##### 通过消息接收者reserver的isa指针 找到类对象 或 元类对象\(reserver\_class\)，然后从该对象中的cach方法缓存中查找，如果没找到就从class\_rw\_t中方法列表查找，如果找到则调用IMP函数 并 缓存到 cach 中；
-    * ##### 如果没有找到就从 superclass 中按上面步骤查找，如果找到了就调用方法 并 缓存到 reserver\_class 的 cach 中；如果一直没找到就进入下一步 动态方法解析。
+    * ##### 如果没有找到就从 superclass 中按上面步骤查找，如果找到了就调用方法 并 缓存到 reserver\_class 的 cach 中；如果一直没找到就进入下一步 动态方法解析\(通过判断不重复进入这一步\)。
   * #### 动态方法解析：
-  * #### 消息转发机制： 
+
+    * +\(BOOL\)resolveInstanceMethod:\(SEL\)sel 和 +\(BOOL\)resolveClassMethod:\(SEL\)sel 
+
+    * ##### 根据不同的方法，动态给对象添加方法 并 返回YES；然后系统又重新走消息发送 。
+  * #### 消息转发机制：
 
 
 
