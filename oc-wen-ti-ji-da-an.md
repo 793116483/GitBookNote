@@ -257,7 +257,7 @@ struct NSObject_IMPL {
 
        1. ##### value == nil 时会将 objectMap\[key\] 的旧记录擦除掉；
 
-###### Block
+### Block
 
 * #### 15. block 本质是什么？
 
@@ -289,6 +289,17 @@ struct NSObject_IMPL {
 
   * ##### ARC环境下：使用 \_\_weak 和 \_\_unsafe\_unretained （使用时注意不会自动置nil，可能会引起坏内存访问）
   * ##### MRC环境下：使用 \_\_safe\_unretained 和 \_\_block 修饰变量
+
+### Runtime
+
+* #### 19. objc\_msgSend 函数查找调用方法的三个阶段？
+
+  * #### 消息发送：
+
+    * ##### 通过消息接收者reserver的isa指针 找到类对象 或 元类对象\(reserver\_class\)，然后从该对象中的cach方法缓存中查找，如果没找到就从class\_rw\_t中方法列表查找，如果找到则调用IMP函数 并 缓存到 cach 中；
+    * ##### 如果没有找到就从 superclass 中按上面步骤查找，如果找到了就调用方法 并 缓存到 reserver\_class 的 cach 中；如果一直没找到就进入下一步 动态方法解析。
+  * #### 动态方法解析：
+  * #### 消息转发机制： 
 
 
 
