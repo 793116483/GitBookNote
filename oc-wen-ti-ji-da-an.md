@@ -314,5 +314,7 @@ struct NSObject_IMPL {
         * ###### @encode\(&lt;\#type-name\#&gt;\) 可以获取对应类型的 签名类型，如：指针对应@
       * ##### -或+\(void\)forwardInvocation:\(NSInvocation \*\)anInvocation 内可以不处理消息 或 处理消息\(可获取和修改所有的参数，包括返回值参数\)
 
+* #### 20. @dynamic key \(不会自动生成 getter 、 setter 方法 和 \_key成员变量\)；@synthesize key=\_key（自动生成 getter 、setter 方法 和 指定的\_key成员变量）
+
 
 
