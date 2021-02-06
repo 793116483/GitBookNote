@@ -311,6 +311,7 @@ struct NSObject_IMPL {
       * ##### 获取方法签名：-\(NSMethodSignature\*\)methodSignatureForSelector:\(SEL\)aSelector
 
         * ###### 如果返回nil或不正确的方法签名，则直接报错打不到方法；
+        * ###### @encode\(&lt;\#type-name\#&gt;\) 可以获取对应类型的 签名类型，如：指针对应@
       * ##### -\(void\)forwardInvocation:\(NSInvocation \*\)anInvocation 内可以不处理消息 或 处理消息\(可获取和修改所有的参数，包括返回值参数\)
 
 
