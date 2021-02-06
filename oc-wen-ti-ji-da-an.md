@@ -305,5 +305,13 @@ struct NSObject_IMPL {
     * ##### 根据不同的方法，动态给对象添加方法\(class\_addMethod 函数\) ，标记已经动态解析；然后系统又重新走消息发送 。
   * #### 消息转发机制：
 
+    * ##### 更换消息接收者：-\(id\)forwardingTargetForSelector:\(SEL\)aSelector；如果返回 nil 进入完全消息转发；返回有值则重新发送消息；
+    * ##### 完全消息转发：
+
+      * ##### 获取方法签名：-\(NSMethodSignature\*\)methodSignatureForSelector:\(SEL\)aSelector
+
+        * ###### 如果返回nil或不正确的方法签名，则直接报错打不到方法；
+      * ##### -\(void\)forwardInvocation:\(NSInvocation \*\)anInvocation 内可以不处理消息 或 处理消息\(可获取和修改所有的参数，包括返回值参数\)
+
 
 
