@@ -313,8 +313,13 @@ struct NSObject_IMPL {
         * ###### 如果返回nil或不正确的方法签名，则直接报错打不到方法；
         * ###### @encode\(&lt;\#type-name\#&gt;\) 可以获取对应类型的 签名类型，如：指针对应@
       * ##### -或+\(void\)forwardInvocation:\(NSInvocation \*\)anInvocation 内可以不处理消息 或 处理消息\(可获取和修改所有的参数，包括返回值参数\)
-
 * #### 20. @dynamic key \(不会自动生成 getter 、 setter 方法 和 \_key成员变量\)；@synthesize key=\_key（自动生成 getter 、setter 方法 和 指定的\_key成员变量）
+
+### RunLoop
+
+* #### 21.runloop 与 线程的关系？
+* #### 22. runloop 内部实现？
+* #### 23. runloop 如实现休眠的？
 
 
 
