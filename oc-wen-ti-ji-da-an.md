@@ -292,6 +292,7 @@ struct NSObject_IMPL {
 
 ### Runtime
 
+* #### 底层面试题：https://blog.51cto.com/14121524/2475958
 * #### 19. objc\_msgSend 函数查找调用方法的三个阶段？
 
   * #### 消息发送：
@@ -317,9 +318,10 @@ struct NSObject_IMPL {
 
 ### RunLoop
 
+* #### 底层面试题：https://blog.51cto.com/14121524/2475958
 * #### 21.runloop 与 线程的关系？
 
-  * #### 与线程是一一对应的关系，子线程的runloop需要手动开启，第一次获取即创建runloop，底层由一个全局的Dictionray管理，线程做为key，runloop做为value;
+  * ##### 与线程是一一对应的关系，子线程的runloop需要手动开启，第一次获取即创建runloop，底层由一个全局的Dictionray管理，线程做为key，runloop做为value;
 * #### 22. runloop 内部实现？
 
   * #### ![](/assets/runloop实现机制1.png)
