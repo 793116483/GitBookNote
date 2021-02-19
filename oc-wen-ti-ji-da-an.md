@@ -318,8 +318,14 @@ struct NSObject_IMPL {
 ### RunLoop
 
 * #### 21.runloop 与 线程的关系？
+
+  * #### 与线程是一一对应的关系，子线程的runloop需要手动开启，第一次获取即创建runloop，底层由一个全局的Dictionray管理，线程做为key，runloop做为value;
 * #### 22. runloop 内部实现？
-* #### 23. runloop 如实现休眠的？
+
+  * #### ![](/assets/runloop实现机制1.png)
+* #### 23. runloop 如何实现休眠的？
+
+  * ##### 从用户态转成内核态。
 
 
 
