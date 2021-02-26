@@ -336,5 +336,9 @@ struct NSObject_IMPL {
   * ##### 通过 pthread\_rwlock 读写锁；
   * ##### 或通过 [dispatch\_barrier\_async](https://www.jianshu.com/p/540c2b22ba38)（栅栏函数）实现单写功能，读取功能的所有异步任务保证都是添加到同一个并发队列中。
 
+* #### 25. 如保控制最大并发数量？
+
+  * ##### 通过 [NSOperationQueue](https://www.jianshu.com/p/9161a6490977) 或 [Dispatch Semaphore](https://www.jianshu.com/p/8549a35b7bf2) 信号量控制。
+
 
 
