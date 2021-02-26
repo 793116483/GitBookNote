@@ -292,7 +292,7 @@ struct NSObject_IMPL {
 
 ### Runtime
 
-* #### 底层面试题：https://blog.51cto.com/14121524/2475958
+* #### 底层面试题：[https://blog.51cto.com/14121524/2475958](https://blog.51cto.com/14121524/2475958)
 * #### 19. objc\_msgSend 函数查找调用方法的三个阶段？
 
   * #### 消息发送：
@@ -318,7 +318,7 @@ struct NSObject_IMPL {
 
 ### RunLoop
 
-* #### 底层面试题：https://blog.51cto.com/14121524/2475958
+* #### 底层面试题：[https://blog.51cto.com/14121524/2475958](https://blog.51cto.com/14121524/2475958)
 * #### 21.runloop 与 线程的关系？
 
   * ##### 与线程是一一对应的关系，子线程的runloop需要手动开启，第一次获取即创建runloop，底层由一个全局的Dictionray管理，线程做为key，runloop做为value;
@@ -328,6 +328,13 @@ struct NSObject_IMPL {
 * #### 23. runloop 如何实现休眠的？
 
   * ##### 从用户态转成内核态。
+
+### 多线程
+
+* #### 24. 如何保证多读单写安全？
+
+  * ##### 通过 pthread\_rwlock 读写锁；
+  * ##### 或通过 [dispatch\_barrier\_async](https://www.jianshu.com/p/540c2b22ba38)（栅栏函数）实现单写功能，读取功能的所有异步任务保证都是添加到同一个并发队列中。
 
 
 
