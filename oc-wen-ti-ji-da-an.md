@@ -335,10 +335,22 @@ struct NSObject_IMPL {
 
   * ##### 通过 pthread\_rwlock 读写锁；
   * ##### 或通过 [dispatch\_barrier\_async](https://www.jianshu.com/p/540c2b22ba38)（栅栏函数）实现单写功能，读取功能的所有异步任务保证都是添加到同一个并发队列中。
-
 * #### 25. 如保控制最大并发数量？
 
   * ##### 通过 [NSOperationQueue](https://www.jianshu.com/p/9161a6490977) 或 [Dispatch Semaphore](https://www.jianshu.com/p/8549a35b7bf2) 信号量控制。
+
+* #### 26. CADisplayLink 与 NSTimer 定时器准确吗？使用什么定时器比较准确？
+
+  * ##### 不准确：因为这两个定时器是基于runloop 实现的，如果runloop在处理耗时的任务时定时器就会有延时执行；
+  * ##### 使用 GCD 的定时器准备，因为是基于内核实现的，与Runloop 毫无关系：
+  * ```
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, <#dispatchQueue#>);
+    dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, <#intervalInSeconds#> * NSEC_PER_SEC, <#leewayInSeconds#> * NSEC_PER_SEC);
+    dispatch_source_set_event_handler(timer, ^{
+                    <#code to be executed when timer fires#>
+                });
+    dispatch_resume(timer);
+    ```
 
 
 
