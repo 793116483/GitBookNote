@@ -28,22 +28,21 @@
 
 * #### 0. MVC、MVP 与 MVVM
 
-  * ##### MVC：
+  * #### MVC：
 
     * ##### model 用于存数据，
     * ##### View只是单纯展示\(与model无关联，变种后的可以拥有model\)，
     * ##### Controller用于数据获取、设置给view及响应事件；
-  * ##### MVP：
+  * #### MVP：
 
     * ##### model 用于存数据，
     * ##### View将属性view暴露出来单纯展示，
     * ##### P是处理 对应模块的view\(设置显示内容及响应事件\)和model 数据处理；model 与 View 毫无关联，P是将以应功能从Controller 解放出来。
-  * ##### MVVM：
+  * #### MVVM：
 
     * ##### model用于存数据，
     * ##### ViewModel 处理对应模块的view\(事件响应\) 和 model数据处理，并且自身添加model所有属性用于被view监听改变，
     * ##### View 拥有 viewModel 并监听该对象属性的改变
-
 * #### 1.OC 类本质是结构体，对像是一个结构体指针
 
 ```
